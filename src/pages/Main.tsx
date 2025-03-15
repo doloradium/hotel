@@ -55,7 +55,7 @@ export default function HotelBooking() {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center">
       <header className="bg-white shadow-md flex justify-between items-center px-6 py-4 w-full max-w-6xl">
-        <h1 className="text-lg font-bold">Высота 1488</h1>
+        <h1 className="text-lg font-bold">Высота 1337</h1>
         <div className="flex items-center space-x-4">
           <button className="bg-blue-500 text-white px-4 py-2 rounded-lg">История бронирования</button>
           <a href="/profile" className="text-gray-700 hover:underline">{userName}</a>
