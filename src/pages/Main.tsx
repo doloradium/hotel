@@ -67,7 +67,7 @@ export default function HotelBooking() {
           <input type="number" placeholder="Мин. цена" className="border p-2 rounded-lg" value={minPrice} onChange={(e) => setMinPrice(Number(e.target.value))} />
           <input type="number" placeholder="Макс. цена" className="border p-2 rounded-lg" value={maxPrice} onChange={(e) => setMaxPrice(Number(e.target.value))} />
           <select value={rating} onChange={(e) => setRating(Number(e.target.value))} className="border p-2 rounded-lg">
-            <option value={0}>Любой рейтингс</option>
+            <option value={0}>Любой рейтинг</option>
             {[1, 2, 3, 4, 5].map((star) => (
               <option key={star} value={star}>{star} звёзд</option>
             ))}
