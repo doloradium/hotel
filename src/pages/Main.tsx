@@ -1,7 +1,3 @@
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-
-
 import { useState } from "react";
 
 export default function Main() {
@@ -47,7 +43,6 @@ export default function Main() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Header />
       <div className="w-full h-60 bg-cover bg-center" style={{ backgroundImage: "url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/85863822.jpg?k=d37dac2d88e6decc92c92411a0c06ee8180af0e4b41dfe79962559d7f4e7f02b&o=')" }}></div>
       <div className="bg-white p-6 rounded-lg shadow-md mt-6 w-4/5 mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -82,7 +77,6 @@ export default function Main() {
           </div>
         ))}
       </div>
-      <Footer />
     </div>
   );
 }
