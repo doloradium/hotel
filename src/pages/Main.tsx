@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 
 
@@ -81,26 +82,7 @@ export default function Main() {
           </div>
         ))}
       </div>
-      <footer className="bg-white shadow-md mt-10 p-6 text-center w-full">
-        <div className="w-4/5 mx-auto flex justify-between">
-          <div>
-            <h2 className="font-bold">Страницы</h2>
-            <a href="#" className="block text-blue-500">История бронирования</a>
-            <a href="#" className="block text-blue-500">Авторизация</a>
-            <a href="#" className="block text-blue-500">Главная</a>
-          </div>
-          <div>
-            <h2 className="font-bold">DSTU Hotel</h2>
-            <p>© 2025, Все права защищены</p>
-          </div>
-          <div>
-            <h2 className="font-bold">Над проектом работали</h2>
-            <p>Демьяненко Владислав</p>
-            <p>Сафонов Максим</p>
-            <p>Макей Валерий</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
