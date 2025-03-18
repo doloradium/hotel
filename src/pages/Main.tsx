@@ -1,23 +1,9 @@
 import { useState } from "react";
-import {
-  format,
-  addMonths,
-  subMonths,
-  startOfMonth,
-  endOfMonth,
-  eachDayOfInterval
-} from "date-fns";
-import { ru } from "date-fns/locale";
 
-export default function HotelBooking() {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+export default function Main() {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(55000);
   const [rating, setRating] = useState(0);
-  const [selectedFeatures, setSelectedFeatures] = useState([]);
-  const userName = "Иван";
 
   const features = [
     "Шумоизоляция",
@@ -57,13 +43,6 @@ export default function HotelBooking() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <header className="w-full bg-white shadow-md flex justify-between items-center px-6 py-4">
-        <h1 className="text-lg font-bold">Высота 1488</h1>
-        <div className="flex items-center space-x-4">
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-lg">История бронирования</button>
-          <a href="/profile" className="text-gray-700 hover:underline">{userName}</a>
-        </div>
-      </header>
       <div className="w-full h-60 bg-cover bg-center" style={{ backgroundImage: "url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/85863822.jpg?k=d37dac2d88e6decc92c92411a0c06ee8180af0e4b41dfe79962559d7f4e7f02b&o=')" }}></div>
       <div className="bg-white p-6 rounded-lg shadow-md mt-6 w-4/5 mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -98,26 +77,6 @@ export default function HotelBooking() {
           </div>
         ))}
       </div>
-      <footer className="bg-white shadow-md mt-10 p-6 text-center w-full">
-        <div className="w-4/5 mx-auto flex justify-between">
-          <div>
-            <h2 className="font-bold">Страницы</h2>
-            <a href="#" className="block text-blue-500">История бронирования</a>
-            <a href="#" className="block text-blue-500">Авторизация</a>
-            <a href="#" className="block text-blue-500">Главная</a>
-          </div>
-          <div>
-            <h2 className="font-bold">DSTU Hotel</h2>
-            <p>© 2025, Все права защищены</p>
-          </div>
-          <div>
-            <h2 className="font-bold">Над проектом работали</h2>
-            <p>Демьяненко Владислав</p>
-            <p>Сафонов Максим</p>
-            <p>Макей Валерий</p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
