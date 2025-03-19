@@ -1,6 +1,6 @@
 export default function Footer() {
     return (
-        <footer className="w-full sticky top-0 shadow-lg bg-white px-4 py-8 border-t border-gray-200">
+        <footer className="w-full sticky top-0 shadow-(--custom-shadow) bg-white px-4 py-8 border-t border-gray-200">
             <div className="w-full max-w-7xl m-auto flex items-center justify-between relative">
                 <div className="flex flex-col gap-2">
                     <h2 className="font-semibold text-xl mb-2">Страницы</h2>

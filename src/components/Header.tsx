@@ -1,6 +1,6 @@
 export default function Header() {
     return (
-        <header className="w-full sticky top-0 shadow-lg bg-white p-4 border-b border-gray-200">
+        <header className="w-full sticky top-0 shadow-(--custom-shadow) bg-white p-4 border-b border-gray-200">
             <div className="w-full max-w-7xl m-auto flex items-center justify-between">
                 <h1 className="text-2xl font-semibold">Высота 1488</h1>
                 <div className="flex items-center space-x-4 gap-8">
