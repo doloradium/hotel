@@ -7,7 +7,6 @@ import Register from '@/pages/Register'
 import Login from '@/pages/Login'
 import Main from '@/pages/Main'
 import Room from '@/pages/Room'
-
 import './index.css'
 
 createRoot(document.getElementById('root')!).render(
