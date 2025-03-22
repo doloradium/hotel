@@ -5,11 +5,6 @@ import Calendar from '@/components/Calendar';
 import { X } from "lucide-react";
 
 export default function HotelBooking() {
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  setSelectedDate(e.target.value);
-};
-
 const icon_filter = [
     {
         id: 0,

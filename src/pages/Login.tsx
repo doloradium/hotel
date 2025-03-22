@@ -9,7 +9,7 @@ export default function Login() {
 // Фильтры номеров
 
 import { useState } from "react";
-import { FaUtensils, FaWifi, FaDesktop, FaKey, FaBed, FaVolumeMute, FaHandSparkles } from "react-icons/fa";
+import { FaUtensils, FaWifi, FaDesktop, FaKey, FaVolumeMute, FaHandSparkles } from "react-icons/fa";
 
 export function FeaturesSelection() {
   const features = [

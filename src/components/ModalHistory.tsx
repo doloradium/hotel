@@ -1,6 +1,4 @@
 import Modal from "@/components/Modal";
-import { X } from "lucide-react";
-import { useState } from "react";
 
 interface ModalHistoryProps {
     setIsOpen: (isOpen: boolean) => void;
