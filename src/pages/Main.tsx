@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Calendar from "./Calendar";
-import {FeaturesSelection, RatingFilter, RoomCard } from "@/pages/Login";
+import { FeaturesSelection, RatingFilter, RoomCard } from "@/pages/Login";
+import heroImage from "@/assets/hero.jpg";
 
 export default function Main() {
   const [minPrice, setMinPrice] = useState(0);
@@ -51,7 +52,7 @@ export default function Main() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <div className="w-full h-32 sm:h-40 md:h-60 bg-cover bg-center" style={{ backgroundImage: "url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/85863822.jpg?k=d37dac2d88e6decc92c92411a0c06ee8180af0e4b41dfe79962559d7f4e7f02b&o=')" }}></div>
+      <div style={{ backgroundImage: `url(${heroImage})` }} className={`w-full h-32 sm:h-40 md:h-96 bg-cover bg-center`}></div>
       <div className="bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-md mt-3 sm:mt-4 md:mt-6 w-[98%] sm:w-[95%] md:w-[90%] lg:w-4/5 mx-auto">
         <div className="flex flex-col gap-2 sm:gap-1">
           <div className="flex flex-col sm:flex-col md:flex-row gap-3 sm:gap-4 md:items-end">

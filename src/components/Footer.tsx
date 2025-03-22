@@ -9,7 +9,7 @@ export default function Footer() {
                     <a href="#" className="block text-blue-500">Главная</a>
                 </div>
                 <div className="absolute top-1/2 left-1/2 -translate-2/4 flex items-center justify-center flex-col gap-2">
-                    <h2 className="font-semibold text-2xl">DSTU Hotel</h2>
+                    <h2 className="font-semibold text-2xl">Высота 1488</h2>
                     <p className="text-black/50 ">© 2025, Все права защищены</p>
                 </div>
                 <div className="flex flex-col gap-2">
