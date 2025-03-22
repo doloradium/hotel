@@ -2,8 +2,11 @@ import { useState } from "react";
 import Calendar from "./Calendar";
 import { FeaturesSelection, RatingFilter, RoomCard } from "@/pages/Login";
 import heroImage from "@/assets/hero.jpg";
+import { useNavigate } from "react-router";
 
 export default function Main() {
+  const navigate = useNavigate();
+
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(55000);
   const [rating, setRating] = useState(0);
@@ -132,7 +135,7 @@ export default function Main() {
                 className="w-full md:w-[100px] lg:w-[120px] h-10 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl sm:rounded-2xl bg-gray-50 text-gray-400 placeholder-gray-400 text-sm"
               />
             </div>
-            <button className="h-full absolute top-1/2 left-8/10 -translate-2/4  bg-[#3B82F6] hover:bg-blue-600 text-white h-10  sm:h-20 px-16 rounded-xl sm:rounded-2xl md:ml-auto mt-0 md:mt-0 text-sm sm:text-base font-medium">
+            <button onClick={() => navigate("/room")} className="h-full absolute top-1/2 left-8/10 -translate-2/4  bg-[#3B82F6] hover:bg-blue-600 text-white h-10  sm:h-20 px-16 rounded-xl sm:rounded-2xl md:ml-auto mt-0 md:mt-0 text-sm sm:text-base font-medium">
               Найти
             </button>
           </div>
