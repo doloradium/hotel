@@ -13,9 +13,9 @@ export default function Header() {
         <>
             <header className="w-full sticky top-0 shadow-(--custom-shadow) bg-white p-4 border-b border-gray-200">
                 <div className="flex items-center justify-between w-full m-auto max-w-7xl">
-                    <div className="flex items-center gap-4">
+                    <div onClick={() => navigate('/')} className="flex items-center gap-4 transition-all duration-300 cursor-pointer hover:scale-90">
                         <img src={logo} alt="logo" className="w-10 h-10" />
-                        <h1 onClick={() => navigate('/')} className="text-2xl font-semibold">Высота 1488</h1>
+                        <h1 className="text-2xl font-semibold">Высота 1488</h1>
                     </div>
                     <div className="flex items-center gap-8 space-x-4">
                         <button onClick={() => setIsOpen(true)} className="px-4 py-2 font-semibold text-white bg-blue-500 rounded-lg">История бронирования</button>
