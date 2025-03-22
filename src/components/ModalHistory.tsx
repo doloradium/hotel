@@ -1,11 +1,7 @@
-import Modal from "@/components/Modal";
+import Modal from '@/components/Modal';
+import { ModalChildProps } from '@/interfaces';
 
-interface ModalHistoryProps {
-    setIsOpen: (isOpen: boolean) => void;
-    isOpen: boolean;
-}
-
-export default function ModalHistory({ isOpen, setIsOpen }: ModalHistoryProps) {
+export default function ModalHistory({ isOpen, setIsOpen }: ModalChildProps) {
 
     const bookings = [
         { id: 1, name: "Номер “Люкс”", rating: 4, guests: 3, dates: "12.02.2002 — 16.02.2002", status: "edit" },
@@ -15,10 +11,10 @@ export default function ModalHistory({ isOpen, setIsOpen }: ModalHistoryProps) {
 
     return (
         <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-            <h2 className="text-2xl font-semibold text-center mb-4">История бронирования</h2>
+            <h2 className="mb-4 text-2xl font-semibold text-center">История бронирования</h2>
             <div className="space-y-4">
                 {bookings.map((booking) => (
-                    <div key={booking.id} className="bg-gray-100 rounded-lg p-4 shadow-sm flex justify-between items-center">
+                    <div key={booking.id} className="flex items-center justify-between p-4 bg-gray-100 rounded-lg shadow-sm">
                         <div>
                             <h3 className="font-semibold">{booking.name}</h3>
 
@@ -34,17 +30,17 @@ export default function ModalHistory({ isOpen, setIsOpen }: ModalHistoryProps) {
                                 ))}
                             </div>
 
-                            <p className="text-gray-500 text-sm">{booking.guests} чел, {booking.dates}</p>
+                            <p className="text-sm text-gray-500">{booking.guests} чел, {booking.dates}</p>
                         </div>
 
                         <div className="flex space-x-2">
                             {booking.status === "edit" ? (
                                 <>
-                                    <button className="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg">Отменить</button>
-                                    <button className="bg-blue-500 text-white px-4 py-2 rounded-lg">Редактировать</button>
+                                    <button className="px-4 py-2 text-blue-600 bg-blue-100 rounded-lg">Отменить</button>
+                                    <button className="px-4 py-2 text-white bg-blue-500 rounded-lg">Редактировать</button>
                                 </>
                             ) : (
-                                <button className="bg-blue-500 text-white px-4 py-2 rounded-lg">Оставить отзыв</button>
+                                <button className="px-4 py-2 text-white bg-blue-500 rounded-lg">Оставить отзыв</button>
                             )}
                         </div>
                     </div>

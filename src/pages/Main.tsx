@@ -1,8 +1,8 @@
-import { useState } from "react";
-import Calendar from "./Calendar";
-import { FeaturesSelection, RatingFilter, RoomCard } from "@/pages/Login";
-import heroImage from "@/assets/hero.jpg";
-import { useNavigate } from "react-router";
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+
+import heroImage from '@/assets/hero.jpg';
+import { FeaturesSelection, RatingFilter, RoomCard } from '@/pages/Login';
 
 export default function Main() {
   const navigate = useNavigate();
@@ -58,9 +58,9 @@ export default function Main() {
       <div style={{ backgroundImage: `url(${heroImage})` }} className={`w-full h-32 sm:h-40 md:h-96 bg-cover bg-center`}></div>
       <div className="bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-md mt-3 sm:mt-4 md:mt-6 w-[98%] sm:w-[95%] md:w-[90%] lg:w-4/5 mx-auto">
         <div className="flex flex-col gap-2 sm:gap-1">
-          <div className="flex flex-col sm:flex-col md:flex-row gap-3 sm:gap-4 md:items-end">
+          <div className="flex flex-col gap-3 sm:flex-col md:flex-row sm:gap-4 md:items-end">
             <div className="w-full md:w-auto">
-              <div className="text-xs sm:text-sm text-gray-500 mb-1 sm:mb-2">Стоимость за сутки</div>
+              <div className="mb-1 text-xs text-gray-500 sm:text-sm sm:mb-2">Стоимость за сутки</div>
               <div className="flex flex-row gap-2 sm:gap-4">
                 <input
                   type="number"
@@ -80,9 +80,9 @@ export default function Main() {
             </div>
 
             <div className="w-full md:w-auto">
-              <div className="text-xs sm:text-sm text-gray-500 mb-1 sm:mb-2">Даты пребывания</div>
+              <div className="mb-1 text-xs text-gray-500 sm:text-sm sm:mb-2">Даты пребывания</div>
               <div className="flex flex-row gap-2 sm:gap-4">
-                <div className="relative w-full md:w-auto flex-1 md:flex-none">
+                <div className="relative flex-1 w-full md:w-auto md:flex-none">
                   <input
                     type="text"
                     placeholder="Заезд"
@@ -91,19 +91,8 @@ export default function Main() {
                     onClick={() => setShowStartCalendar(!showStartCalendar)}
                     readOnly
                   />
-                  {showStartCalendar && (
-                    <div className="absolute top-12 sm:top-14 left-0 z-50 bg-white shadow-lg rounded-lg">
-                      <Calendar
-                        selectedDate={startDate}
-                        onChange={(date) => {
-                          setStartDate(date);
-                          setShowStartCalendar(false);
-                        }}
-                      />
-                    </div>
-                  )}
                 </div>
-                <div className="relative w-full md:w-auto flex-1 md:flex-none">
+                <div className="relative flex-1 w-full md:w-auto md:flex-none">
                   <input
                     type="text"
                     placeholder="Выезд"
@@ -112,23 +101,12 @@ export default function Main() {
                     onClick={() => setShowEndCalendar(!showEndCalendar)}
                     readOnly
                   />
-                  {showEndCalendar && (
-                    <div className="absolute top-12 sm:top-14 left-0 z-50 bg-white shadow-lg rounded-lg">
-                      <Calendar
-                        selectedDate={endDate}
-                        onChange={(date) => {
-                          setEndDate(date);
-                          setShowEndCalendar(false);
-                        }}
-                      />
-                    </div>
-                  )}
                 </div>
               </div>
             </div>
 
             <div className="w-full md:w-auto">
-              <div className="text-xs sm:text-sm text-gray-500 mb-1 sm:mb-2">Количество человек</div>
+              <div className="mb-1 text-xs text-gray-500 sm:text-sm sm:mb-2">Количество человек</div>
               <input
                 type="number"
                 placeholder="1"
@@ -140,17 +118,17 @@ export default function Main() {
             </button>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
             <div className="relative w-full sm:w-[445px]">
               <div
-                className="w-full h-10 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl sm:rounded-2xl bg-gray-50 text-gray-400 cursor-pointer flex items-center text-sm"
+                className="flex items-center w-full h-10 px-2 text-sm text-gray-400 border border-gray-200 cursor-pointer sm:h-12 sm:px-4 rounded-xl sm:rounded-2xl bg-gray-50"
                 onClick={() => setShowAmenities(!showAmenities)}
               >
                 {selectedAmenities.length ? `Выбрано: ${selectedAmenities.length}` : 'Удобства'}
               </div>
 
               {showAmenities && (
-                <div className="absolute top-12 sm:top-14 left-0 z-50 bg-white shadow-lg rounded-lg p-3 sm:p-4 w-full">
+                <div className="absolute left-0 z-50 w-full p-3 bg-white rounded-lg shadow-lg top-12 sm:top-14 sm:p-4">
                   <div className="flex flex-col gap-2">
                     {features.map((feature, index) => (
                       <label key={index} className="flex items-center gap-2 cursor-pointer">
@@ -164,9 +142,9 @@ export default function Main() {
                               setSelectedAmenities([...selectedAmenities, feature]);
                             }
                           }}
-                          className="rounded border-gray-300"
+                          className="border-gray-300 rounded"
                         />
-                        <span className="text-gray-600 text-sm">{feature}</span>
+                        <span className="text-sm text-gray-600">{feature}</span>
                       </label>
                     ))}
                   </div>
@@ -178,7 +156,7 @@ export default function Main() {
               <select
                 value={rating}
                 onChange={(e) => setRating(Number(e.target.value))}
-                className="w-full h-10 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl sm:rounded-2xl bg-gray-50 text-gray-400 text-sm"
+                className="w-full h-10 px-2 text-sm text-gray-400 border border-gray-200 sm:h-12 sm:px-4 rounded-xl sm:rounded-2xl bg-gray-50"
               >
                 <option value={0}>Рейтинг</option>
                 {[1, 2, 3, 4, 5].map((star) => (
@@ -191,17 +169,17 @@ export default function Main() {
       </div>
 
       <div className="w-[98%] sm:w-[95%] md:w-[90%] lg:w-4/5 mx-auto mt-4 sm:mt-6">
-        <h2 className="text-2xl font-semibold text-center mb-6">Доступные номера</h2>
+        <h2 className="mb-6 text-2xl font-semibold text-center">Доступные номера</h2>
         <div className="space-y-4">
           {rooms.map((room, index) => (
-            <div key={index} className="bg-white p-4 rounded-lg shadow-md flex flex-col md:flex-row gap-4">
+            <div key={index} className="flex flex-col gap-4 p-4 bg-white rounded-lg shadow-md md:flex-row">
               <img
                 src={room.image}
                 alt={room.name}
                 className="w-full md:w-[250px] h-[180px] object-cover rounded-lg"
               />
               <div className="flex flex-col flex-grow">
-                <div className="flex justify-between items-start">
+                <div className="flex items-start justify-between">
                   <h3 className="text-xl font-semibold">{room.name}</h3>
                   <div className="flex gap-1">
                     {[...Array(room.rating)].map((_, i) => (
@@ -216,7 +194,7 @@ export default function Main() {
                     ))}
                   </div>
                 </div>
-                <p className="text-gray-600 mt-2 text-sm">{room.description}</p>
+                <p className="mt-2 text-sm text-gray-600">{room.description}</p>
                 <div className="flex flex-wrap gap-2 mt-3">
                   {room.features.map((feature, i) => (
                     <div key={i} className="flex items-center gap-1.5 bg-blue-100 text-blue-500 px-3 py-1.5 rounded-lg text-sm">

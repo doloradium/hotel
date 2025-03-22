@@ -8,8 +8,10 @@ export default function Login() {
 
 // Фильтры номеров
 
-import { useState } from "react";
-import { FaUtensils, FaWifi, FaDesktop, FaKey, FaVolumeMute, FaHandSparkles } from "react-icons/fa";
+import { useState } from 'react';
+import {
+  FaDesktop, FaHandSparkles, FaKey, FaStar, FaUserShield, FaUtensils, FaVolumeMute, FaWifi
+} from 'react-icons/fa';
 
 export function FeaturesSelection() {
   const features = [
@@ -23,22 +25,21 @@ export function FeaturesSelection() {
 
   const [selectedFeatures, setSelectedFeatures] = useState(["Завтрак в постель", "Биометрический ключ"]);
 
-  const toggleFeature = (feature : any) => {
+  const toggleFeature = (feature: any) => {
     setSelectedFeatures((prev) =>
       prev.includes(feature) ? prev.filter((f) => f !== feature) : [...prev, feature]
     );
   };
 
   return (
-    <div className="flex flex-wrap gap-2 bg-white p-4 rounded-lg shadow-md">
+    <div className="flex flex-wrap gap-2 p-4 bg-white rounded-lg shadow-md">
       {features.map((feature, index) => (
         <button
           key={index}
-          className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold transition ${
-            selectedFeatures.includes(feature.name)
+          className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold transition ${selectedFeatures.includes(feature.name)
               ? "bg-blue-500 text-white"
               : "bg-blue-100 text-blue-500"
-          }`}
+            }`}
           onClick={() => toggleFeature(feature.name)}
         >
           {feature.icon}
@@ -49,17 +50,13 @@ export function FeaturesSelection() {
   );
 }
 
-// Рейтинг в звёздах
-
-import { FaStar } from "react-icons/fa";
-
 export function RatingFilter() {
   const ratings = [5, 4, 3, 2]; // Уровни рейтинга от 5 до 2 звезд
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md w-48">
-      <div className="flex flex-col items-start bg-blue-500 text-white px-3 py-2 rounded-t-lg">
-        <span className="text-sm font-semibold mb-1">только</span>
+    <div className="w-48 p-4 bg-white rounded-lg shadow-md">
+      <div className="flex flex-col items-start px-3 py-2 text-white bg-blue-500 rounded-t-lg">
+        <span className="mb-1 text-sm font-semibold">только</span>
         <div className="flex">
           {[...Array(5)].map((_, i) => (
             <FaStar key={i} className="text-white" />
@@ -80,19 +77,15 @@ export function RatingFilter() {
             </div>
           </div>
         ))}
-        <p className="text-sm text-gray-500 mt-2">любой рейтинг</p>
+        <p className="mt-2 text-sm text-gray-500">любой рейтинг</p>
       </div>
     </div>
   );
 }
 
-// Номера вид на главной странице в блоке
-
-import {FaUserShield } from "react-icons/fa";
-
 export function RoomCard() {
   return (
-    <div className="bg-white shadow-md rounded-lg flex p-4 w-full max-w-4xl">
+    <div className="flex w-full max-w-4xl p-4 bg-white rounded-lg shadow-md">
       {/* Изображение номера */}
       <img
         src="https://standarthotel.com/upload/iblock/1ea/1eaaf3d47deeafcff9b1931a8fad2dc1.jpg"
@@ -100,7 +93,7 @@ export function RoomCard() {
         className="w-1/3 rounded-lg"
       />
       {/* Описание номера */}
-      <div className="ml-4 flex-1">
+      <div className="flex-1 ml-4">
         <div className="flex justify-between">
           <h3 className="text-lg font-semibold">Номер "Пушка"</h3>
           {/* Рейтинг */}
@@ -110,24 +103,24 @@ export function RoomCard() {
             ))}
           </div>
         </div>
-        <p className="text-gray-600 mt-1">
+        <p className="mt-1 text-gray-600">
           Данный номер имеет окно с видом на гору Эверест, а еще в нем ночевал
           Александр Лукашенко
         </p>
         {/* Удобства */}
         <div className="flex flex-wrap gap-2 mt-3">
-          <span className="flex items-center bg-blue-100 text-blue-600 px-2 py-1 rounded-lg text-sm">
+          <span className="flex items-center px-2 py-1 text-sm text-blue-600 bg-blue-100 rounded-lg">
             <FaUtensils className="mr-1" /> Завтрак в постель
           </span>
-          <span className="flex items-center bg-blue-100 text-blue-600 px-2 py-1 rounded-lg text-sm">
+          <span className="flex items-center px-2 py-1 text-sm text-blue-600 bg-blue-100 rounded-lg">
             <FaWifi className="mr-1" /> Есть интернет
           </span>
-          <span className="flex items-center bg-gray-200 text-gray-500 px-2 py-1 rounded-lg text-sm">
+          <span className="flex items-center px-2 py-1 text-sm text-gray-500 bg-gray-200 rounded-lg">
             <FaUserShield className="mr-1" /> Личный дворецкий
           </span>
         </div>
         {/* Кнопка бронирования */}
-        <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg font-semibold">
+        <button className="px-4 py-2 mt-4 font-semibold text-white bg-blue-500 rounded-lg">
           Забронировать • 8 000 ₽
         </button>
       </div>
