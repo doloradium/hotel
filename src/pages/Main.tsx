@@ -10,8 +10,6 @@ export default function Main() {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(55000);
   const [rating, setRating] = useState(0);
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
   const [showStartCalendar, setShowStartCalendar] = useState(false);
   const [showEndCalendar, setShowEndCalendar] = useState(false);
   const [showAmenities, setShowAmenities] = useState(false);
@@ -87,7 +85,7 @@ export default function Main() {
                     type="text"
                     placeholder="Заезд"
                     className="w-full md:w-[140px] lg:w-[160px] h-10 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl sm:rounded-2xl bg-gray-50 text-gray-400 placeholder-gray-400 cursor-pointer text-sm"
-                    value={startDate ? startDate.toLocaleDateString() : ''}
+                    value={''}
                     onClick={() => setShowStartCalendar(!showStartCalendar)}
                     readOnly
                   />
@@ -97,7 +95,7 @@ export default function Main() {
                     type="text"
                     placeholder="Выезд"
                     className="w-full md:w-[140px] lg:w-[160px] h-10 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl sm:rounded-2xl bg-gray-50 text-gray-400 placeholder-gray-400 cursor-pointer text-sm"
-                    value={endDate ? endDate.toLocaleDateString() : ''}
+                    value={''}
                     onClick={() => setShowEndCalendar(!showEndCalendar)}
                     readOnly
                   />
