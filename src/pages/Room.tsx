@@ -1,7 +1,6 @@
 // Страница номера 
 
 import { useState } from 'react';
-import { Star, User } from 'lucide-react';
 import Calendar from '@/components/Calendar';
 import { X } from "lucide-react";
 

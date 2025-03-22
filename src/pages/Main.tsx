@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Calendar from "./Calendar";
+import {FeaturesSelection, RatingFilter, RoomCard } from "@/pages/Login";
 
 export default function Main() {
   const [minPrice, setMinPrice] = useState(0);
@@ -57,19 +58,19 @@ export default function Main() {
             <div className="w-full md:w-auto">
               <div className="text-xs sm:text-sm text-gray-500 mb-1 sm:mb-2">Стоимость за сутки</div>
               <div className="flex flex-row gap-2 sm:gap-4">
-                <input 
-                  type="number" 
-                  placeholder="от 0" 
-                  className="w-full md:w-[160px] lg:w-[200px] h-10 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl sm:rounded-2xl bg-gray-50 text-gray-400 placeholder-gray-400 text-sm" 
-                  value={minPrice} 
-                  onChange={(e) => setMinPrice(Number(e.target.value))} 
+                <input
+                  type="number"
+                  placeholder="от 0"
+                  className="w-full md:w-[160px] lg:w-[200px] h-10 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl sm:rounded-2xl bg-gray-50 text-gray-400 placeholder-gray-400 text-sm"
+                  value={minPrice}
+                  onChange={(e) => setMinPrice(Number(e.target.value))}
                 />
-                <input 
-                  type="number" 
-                  placeholder="до 55 000" 
-                  className="w-full md:w-[160px] lg:w-[200px] h-10 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl sm:rounded-2xl bg-gray-50 text-gray-400 placeholder-gray-400 text-sm" 
-                  value={maxPrice} 
-                  onChange={(e) => setMaxPrice(Number(e.target.value))} 
+                <input
+                  type="number"
+                  placeholder="до 55 000"
+                  className="w-full md:w-[160px] lg:w-[200px] h-10 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl sm:rounded-2xl bg-gray-50 text-gray-400 placeholder-gray-400 text-sm"
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(Number(e.target.value))}
                 />
               </div>
             </div>
@@ -78,7 +79,7 @@ export default function Main() {
               <div className="text-xs sm:text-sm text-gray-500 mb-1 sm:mb-2">Даты пребывания</div>
               <div className="flex flex-row gap-2 sm:gap-4">
                 <div className="relative w-full md:w-auto flex-1 md:flex-none">
-                  <input 
+                  <input
                     type="text"
                     placeholder="Заезд"
                     className="w-full md:w-[140px] lg:w-[160px] h-10 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl sm:rounded-2xl bg-gray-50 text-gray-400 placeholder-gray-400 cursor-pointer text-sm"
@@ -88,7 +89,7 @@ export default function Main() {
                   />
                   {showStartCalendar && (
                     <div className="absolute top-12 sm:top-14 left-0 z-50 bg-white shadow-lg rounded-lg">
-                      <Calendar 
+                      <Calendar
                         selectedDate={startDate}
                         onChange={(date) => {
                           setStartDate(date);
@@ -99,7 +100,7 @@ export default function Main() {
                   )}
                 </div>
                 <div className="relative w-full md:w-auto flex-1 md:flex-none">
-                  <input 
+                  <input
                     type="text"
                     placeholder="Выезд"
                     className="w-full md:w-[140px] lg:w-[160px] h-10 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl sm:rounded-2xl bg-gray-50 text-gray-400 placeholder-gray-400 cursor-pointer text-sm"
@@ -109,7 +110,7 @@ export default function Main() {
                   />
                   {showEndCalendar && (
                     <div className="absolute top-12 sm:top-14 left-0 z-50 bg-white shadow-lg rounded-lg">
-                      <Calendar 
+                      <Calendar
                         selectedDate={endDate}
                         onChange={(date) => {
                           setEndDate(date);
@@ -124,10 +125,10 @@ export default function Main() {
 
             <div className="w-full md:w-auto">
               <div className="text-xs sm:text-sm text-gray-500 mb-1 sm:mb-2">Количество человек</div>
-              <input 
-                type="number" 
-                placeholder="1" 
-                className="w-full md:w-[100px] lg:w-[120px] h-10 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl sm:rounded-2xl bg-gray-50 text-gray-400 placeholder-gray-400 text-sm" 
+              <input
+                type="number"
+                placeholder="1"
+                className="w-full md:w-[100px] lg:w-[120px] h-10 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl sm:rounded-2xl bg-gray-50 text-gray-400 placeholder-gray-400 text-sm"
               />
             </div>
             <button className="h-full absolute top-1/2 left-8/10 -translate-2/4  bg-[#3B82F6] hover:bg-blue-600 text-white h-10  sm:h-20 px-16 rounded-xl sm:rounded-2xl md:ml-auto mt-0 md:mt-0 text-sm sm:text-base font-medium">
@@ -137,13 +138,13 @@ export default function Main() {
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <div className="relative w-full sm:w-[445px]">
-              <div 
+              <div
                 className="w-full h-10 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl sm:rounded-2xl bg-gray-50 text-gray-400 cursor-pointer flex items-center text-sm"
                 onClick={() => setShowAmenities(!showAmenities)}
               >
                 {selectedAmenities.length ? `Выбрано: ${selectedAmenities.length}` : 'Удобства'}
               </div>
-              
+
               {showAmenities && (
                 <div className="absolute top-12 sm:top-14 left-0 z-50 bg-white shadow-lg rounded-lg p-3 sm:p-4 w-full">
                   <div className="flex flex-col gap-2">
@@ -170,9 +171,9 @@ export default function Main() {
             </div>
 
             <div className="w-full sm:w-[445px]">
-              <select 
-                value={rating} 
-                onChange={(e) => setRating(Number(e.target.value))} 
+              <select
+                value={rating}
+                onChange={(e) => setRating(Number(e.target.value))}
                 className="w-full h-10 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl sm:rounded-2xl bg-gray-50 text-gray-400 text-sm"
               >
                 <option value={0}>Рейтинг</option>
@@ -184,16 +185,16 @@ export default function Main() {
           </div>
         </div>
       </div>
-      
+
       <div className="w-[98%] sm:w-[95%] md:w-[90%] lg:w-4/5 mx-auto mt-4 sm:mt-6">
         <h2 className="text-2xl font-semibold text-center mb-6">Доступные номера</h2>
         <div className="space-y-4">
           {rooms.map((room, index) => (
             <div key={index} className="bg-white p-4 rounded-lg shadow-md flex flex-col md:flex-row gap-4">
-              <img 
-                src={room.image} 
-                alt={room.name} 
-                className="w-full md:w-[250px] h-[180px] object-cover rounded-lg" 
+              <img
+                src={room.image}
+                alt={room.name}
+                className="w-full md:w-[250px] h-[180px] object-cover rounded-lg"
               />
               <div className="flex flex-col flex-grow">
                 <div className="flex justify-between items-start">
@@ -257,6 +258,9 @@ export default function Main() {
           ))}
         </div>
       </div>
+      <RoomCard />
+      <RatingFilter />
+      <FeaturesSelection />
     </div>
   );
 }
