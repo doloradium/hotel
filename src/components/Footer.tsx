@@ -1,3 +1,4 @@
+import logo from '/logo.svg';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
@@ -19,7 +20,8 @@ export default function Footer() {
                         <button onClick={() => navigate('/')} className="block text-left text-blue-500">Главная</button>
                     </div>
                     <div className="absolute flex flex-col items-center justify-center gap-2 top-1/2 left-1/2 -translate-2/4">
-                        <h2 className="text-2xl font-semibold">Высота 1488</h2>
+                        <img src={logo} alt="logo" className="w-10 h-10" />
+                        <h1 onClick={() => navigate('/')} className="text-2xl font-semibold">Высота 1488</h1>
                         <p className="text-black/50 ">© 2025, Все права защищены</p>
                     </div>
                     <div className="flex flex-col items-end gap-2">
