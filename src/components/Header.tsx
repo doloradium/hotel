@@ -1,15 +1,18 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 import ModalHistory from '@/components/ModalHistory';
 
 export default function Header() {
+    const navigate = useNavigate()
+
     const [isOpen, setIsOpen] = useState(false)
 
     return (
         <>
             <header className="w-full sticky top-0 shadow-(--custom-shadow) bg-white p-4 border-b border-gray-200">
                 <div className="flex items-center justify-between w-full m-auto max-w-7xl">
-                    <h1 className="text-2xl font-semibold">Высота 1488</h1>
+                    <h1 onClick={() => navigate('/')} className="text-2xl font-semibold">Высота 1488</h1>
                     <div className="flex items-center gap-8 space-x-4">
                         <button onClick={() => setIsOpen(true)} className="px-4 py-2 font-semibold text-white bg-blue-500 rounded-lg">История бронирования</button>
                         <div className="flex items-center gap-4">
