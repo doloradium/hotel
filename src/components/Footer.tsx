@@ -1,7 +1,7 @@
-import logo from '/logo.svg';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
+import logo from '@/assets/logo.svg';
 import ModalHistory from '@/components/ModalHistory';
 
 export default function Footer() {
