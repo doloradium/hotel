@@ -1,12 +1,15 @@
-import { useState } from "react";
-import Calendar from "./Calendar";
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+
+import heroImage from '@/assets/hero.jpg';
+import { FeaturesSelection, RatingFilter, RoomCard } from '@/pages/Login';
 
 export default function Main() {
+  const navigate = useNavigate();
+
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(55000);
   const [rating, setRating] = useState(0);
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
   const [showStartCalendar, setShowStartCalendar] = useState(false);
   const [showEndCalendar, setShowEndCalendar] = useState(false);
   const [showAmenities, setShowAmenities] = useState(false);
@@ -50,159 +53,132 @@ export default function Main() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <div className="w-full h-24 sm:h-32 md:h-40 lg:h-60 bg-cover bg-center" style={{ backgroundImage: "url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/85863822.jpg?k=d37dac2d88e6decc92c92411a0c06ee8180af0e4b41dfe79962559d7f4e7f02b&o=')" }}></div>
-      <div className="bg-white p-2 sm:p-4 md:p-6 rounded-lg shadow-md mt-2 sm:mt-4 md:mt-6 w-[95%] sm:w-[90%] md:w-[85%] lg:w-4/5 mx-auto">
-        <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
-          <div className="flex-1 flex flex-col gap-2">
-            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 md:items-end">
-              <div className="w-full sm:w-auto">
-                <div className="text-xs sm:text-sm text-gray-500 mb-1">Стоимость за сутки</div>
-                <div className="flex flex-row gap-2 sm:gap-4">
-                  <input 
-                    type="number" 
-                    placeholder="от 0" 
-                    className="w-full sm:w-[160px] lg:w-[200px] h-9 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl bg-gray-50 text-gray-400 placeholder-gray-400 text-sm" 
-                    value={minPrice} 
-                    onChange={(e) => setMinPrice(Number(e.target.value))} 
-                  />
-                  <input 
-                    type="number" 
-                    placeholder="до 55 000" 
-                    className="w-full sm:w-[160px] lg:w-[200px] h-9 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl bg-gray-50 text-gray-400 placeholder-gray-400 text-sm" 
-                    value={maxPrice} 
-                    onChange={(e) => setMaxPrice(Number(e.target.value))} 
-                  />
-                </div>
-              </div>
-
-              <div className="w-full sm:w-auto">
-                <div className="text-xs sm:text-sm text-gray-500 mb-1">Даты пребывания</div>
-                <div className="flex flex-row gap-2 sm:gap-4">
-                  <div className="relative w-full sm:w-auto flex-1 sm:flex-none">
-                    <input 
-                      type="text"
-                      placeholder="Заезд"
-                      className="w-full sm:w-[140px] lg:w-[160px] h-9 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl bg-gray-50 text-gray-400 placeholder-gray-400 cursor-pointer text-sm"
-                      value={startDate ? startDate.toLocaleDateString() : ''}
-                      onClick={() => setShowStartCalendar(!showStartCalendar)}
-                      readOnly
-                    />
-                    {showStartCalendar && (
-                      <div className="absolute top-10 sm:top-12 left-0 z-50 bg-white shadow-lg rounded-lg">
-                        <Calendar 
-                          selectedDate={startDate}
-                          onChange={(date) => {
-                            setStartDate(date);
-                            setShowStartCalendar(false);
-                          }}
-                        />
-                      </div>
-                    )}
-                  </div>
-                  <div className="relative w-full sm:w-auto flex-1 sm:flex-none">
-                    <input 
-                      type="text"
-                      placeholder="Выезд"
-                      className="w-full sm:w-[140px] lg:w-[160px] h-9 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl bg-gray-50 text-gray-400 placeholder-gray-400 cursor-pointer text-sm"
-                      value={endDate ? endDate.toLocaleDateString() : ''}
-                      onClick={() => setShowEndCalendar(!showEndCalendar)}
-                      readOnly
-                    />
-                    {showEndCalendar && (
-                      <div className="absolute top-10 sm:top-12 left-0 z-50 bg-white shadow-lg rounded-lg">
-                        <Calendar 
-                          selectedDate={endDate}
-                          onChange={(date) => {
-                            setEndDate(date);
-                            setShowEndCalendar(false);
-                          }}
-                        />
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              <div className="w-full sm:w-auto">
-                <div className="text-xs sm:text-sm text-gray-500 mb-1">Количество человек</div>
-                <input 
-                  type="number" 
-                  placeholder="1" 
-                  className="w-full sm:w-[100px] lg:w-[120px] h-9 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl bg-gray-50 text-gray-400 placeholder-gray-400 text-sm" 
+      <div style={{ backgroundImage: `url(${heroImage})` }} className={`w-full h-32 sm:h-40 md:h-96 bg-cover bg-center`}></div>
+      <div className="bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-md mt-3 sm:mt-4 md:mt-6 w-[98%] sm:w-[95%] md:w-[90%] lg:w-4/5 mx-auto">
+        <div className="flex flex-col gap-2 sm:gap-1">
+          <div className="flex flex-col gap-3 sm:flex-col md:flex-row sm:gap-4 md:items-end">
+            <div className="w-full md:w-auto">
+              <div className="mb-1 text-xs text-gray-500 sm:text-sm sm:mb-2">Стоимость за сутки</div>
+              <div className="flex flex-row gap-2 sm:gap-4">
+                <input
+                  type="number"
+                  placeholder="от 0"
+                  className="w-full md:w-[160px] lg:w-[200px] h-10 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl sm:rounded-2xl bg-gray-50 text-gray-400 placeholder-gray-400 text-sm"
+                  value={minPrice}
+                  onChange={(e) => setMinPrice(Number(e.target.value))}
+                />
+                <input
+                  type="number"
+                  placeholder="до 55 000"
+                  className="w-full md:w-[160px] lg:w-[200px] h-10 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl sm:rounded-2xl bg-gray-50 text-gray-400 placeholder-gray-400 text-sm"
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(Number(e.target.value))}
                 />
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
-              <div className="relative w-full sm:w-[445px]">
-                <div 
-                  className="w-full h-9 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl bg-gray-50 text-gray-400 cursor-pointer flex items-center text-sm"
-                  onClick={() => setShowAmenities(!showAmenities)}
-                >
-                  {selectedAmenities.length ? `Выбрано: ${selectedAmenities.length}` : 'Удобства'}
+            <div className="w-full md:w-auto">
+              <div className="mb-1 text-xs text-gray-500 sm:text-sm sm:mb-2">Даты пребывания</div>
+              <div className="flex flex-row gap-2 sm:gap-4">
+                <div className="relative flex-1 w-full md:w-auto md:flex-none">
+                  <input
+                    type="text"
+                    placeholder="Заезд"
+                    className="w-full md:w-[140px] lg:w-[160px] h-10 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl sm:rounded-2xl bg-gray-50 text-gray-400 placeholder-gray-400 cursor-pointer text-sm"
+                    value={''}
+                    onClick={() => setShowStartCalendar(!showStartCalendar)}
+                    readOnly
+                  />
                 </div>
-                
-                {showAmenities && (
-                  <div className="absolute top-10 sm:top-12 left-0 z-50 bg-white shadow-lg rounded-lg p-3 w-full">
-                    <div className="flex flex-col gap-2">
-                      {features.map((feature, index) => (
-                        <label key={index} className="flex items-center gap-2 cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={selectedAmenities.includes(feature)}
-                            onChange={() => {
-                              if (selectedAmenities.includes(feature)) {
-                                setSelectedAmenities(selectedAmenities.filter(f => f !== feature));
-                              } else {
-                                setSelectedAmenities([...selectedAmenities, feature]);
-                              }
-                            }}
-                            className="rounded border-gray-300"
-                          />
-                          <span className="text-gray-600 text-sm">{feature}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="w-full sm:w-[445px]">
-                <select 
-                  value={rating} 
-                  onChange={(e) => setRating(Number(e.target.value))} 
-                  className="w-full h-9 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl bg-gray-50 text-gray-400 text-sm"
-                >
-                  <option value={0}>Рейтинг</option>
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <option key={star} value={star}>{star} ★</option>
-                  ))}
-                </select>
+                <div className="relative flex-1 w-full md:w-auto md:flex-none">
+                  <input
+                    type="text"
+                    placeholder="Выезд"
+                    className="w-full md:w-[140px] lg:w-[160px] h-10 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl sm:rounded-2xl bg-gray-50 text-gray-400 placeholder-gray-400 cursor-pointer text-sm"
+                    value={''}
+                    onClick={() => setShowEndCalendar(!showEndCalendar)}
+                    readOnly
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          
-          <div className="mt-2 sm:mt-0 sm:ml-2 md:ml-4">
-            <button className="w-full sm:w-[140px] h-full min-h-[76px] bg-[#4086F6] hover:bg-[#3575E2] text-white font-normal text-base rounded-xl transition-colors duration-200 flex items-center justify-center">
+
+            <div className="w-full md:w-auto">
+              <div className="mb-1 text-xs text-gray-500 sm:text-sm sm:mb-2">Количество человек</div>
+              <input
+                type="number"
+                placeholder="1"
+                className="w-full md:w-[100px] lg:w-[120px] h-10 sm:h-12 border border-gray-200 px-2 sm:px-4 rounded-xl sm:rounded-2xl bg-gray-50 text-gray-400 placeholder-gray-400 text-sm"
+              />
+            </div>
+            <button onClick={() => navigate("/room")} className="h-full absolute top-1/2 left-8/10 -translate-2/4  bg-[#3B82F6] hover:bg-blue-600 text-white h-10  sm:h-20 px-16 rounded-xl sm:rounded-2xl md:ml-auto mt-0 md:mt-0 text-sm sm:text-base font-medium">
               Найти
             </button>
           </div>
+
+          <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
+            <div className="relative w-full sm:w-[445px]">
+              <div
+                className="flex items-center w-full h-10 px-2 text-sm text-gray-400 border border-gray-200 cursor-pointer sm:h-12 sm:px-4 rounded-xl sm:rounded-2xl bg-gray-50"
+                onClick={() => setShowAmenities(!showAmenities)}
+              >
+                {selectedAmenities.length ? `Выбрано: ${selectedAmenities.length}` : 'Удобства'}
+              </div>
+
+              {showAmenities && (
+                <div className="absolute left-0 z-50 w-full p-3 bg-white rounded-lg shadow-lg top-12 sm:top-14 sm:p-4">
+                  <div className="flex flex-col gap-2">
+                    {features.map((feature, index) => (
+                      <label key={index} className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={selectedAmenities.includes(feature)}
+                          onChange={() => {
+                            if (selectedAmenities.includes(feature)) {
+                              setSelectedAmenities(selectedAmenities.filter(f => f !== feature));
+                            } else {
+                              setSelectedAmenities([...selectedAmenities, feature]);
+                            }
+                          }}
+                          className="border-gray-300 rounded"
+                        />
+                        <span className="text-sm text-gray-600">{feature}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="w-full sm:w-[445px]">
+              <select
+                value={rating}
+                onChange={(e) => setRating(Number(e.target.value))}
+                className="w-full h-10 px-2 text-sm text-gray-400 border border-gray-200 sm:h-12 sm:px-4 rounded-xl sm:rounded-2xl bg-gray-50"
+              >
+                <option value={0}>Рейтинг</option>
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <option key={star} value={star}>{star} ★</option>
+                ))}
+              </select>
+            </div>
+          </div>
         </div>
       </div>
-      
-      <div className="w-[95%] sm:w-[90%] md:w-[85%] lg:w-4/5 mx-auto mt-4 sm:mt-6">
-        <h2 className="text-xl sm:text-2xl font-semibold text-center mb-4 sm:mb-6">Доступные номера</h2>
-        <div className="space-y-3 sm:space-y-4">
+
+      <div className="w-[98%] sm:w-[95%] md:w-[90%] lg:w-4/5 mx-auto mt-4 sm:mt-6">
+        <h2 className="mb-6 text-2xl font-semibold text-center">Доступные номера</h2>
+        <div className="space-y-4">
           {rooms.map((room, index) => (
-            <div key={index} className="bg-white p-3 sm:p-4 rounded-lg shadow-md flex flex-col md:flex-row gap-3 sm:gap-4">
-              <img 
-                src={room.image} 
-                alt={room.name} 
-                className="w-full md:w-[250px] h-[160px] sm:h-[180px] object-cover rounded-lg" 
+            <div key={index} className="flex flex-col gap-4 p-4 bg-white rounded-lg shadow-md md:flex-row">
+              <img
+                src={room.image}
+                alt={room.name}
+                className="w-full md:w-[250px] h-[180px] object-cover rounded-lg"
               />
               <div className="flex flex-col flex-grow">
-                <div className="flex justify-between items-start">
-                  <h3 className="text-lg sm:text-xl font-semibold">{room.name}</h3>
+                <div className="flex items-start justify-between">
+                  <h3 className="text-xl font-semibold">{room.name}</h3>
                   <div className="flex gap-1">
                     {[...Array(room.rating)].map((_, i) => (
                       <svg key={i} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#2B7FFF" className="w-4 h-4 sm:w-5 sm:h-5">
@@ -216,8 +192,8 @@ export default function Main() {
                     ))}
                   </div>
                 </div>
-                <p className="text-gray-600 mt-1 sm:mt-2 text-xs sm:text-sm">{room.description}</p>
-                <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-2 sm:mt-3">
+                <p className="mt-2 text-sm text-gray-600">{room.description}</p>
+                <div className="flex flex-wrap gap-2 mt-3">
                   {room.features.map((feature, i) => (
                     <div key={i} className="flex items-center gap-1 bg-blue-100 text-blue-500 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-xs sm:text-sm">
                       {feature === "Завтрак в постель" && (
@@ -262,6 +238,9 @@ export default function Main() {
           ))}
         </div>
       </div>
+      <RoomCard />
+      <RatingFilter />
+      <FeaturesSelection />
     </div>
   );
 }
