@@ -2,8 +2,9 @@ import { useState } from 'react';
 
 import group8 from '@/assets/Group 8.svg';
 import heroImage from '@/assets/hero.jpg';
+import CardRoom from '@/components/CardRoom';
 
-import { FeaturesSelection, RatingFilter, RoomCard } from './Login';
+import { FeaturesSelection, RatingFilter } from './Login';
 
 export default function Main() {
   const [minPrice, setMinPrice] = useState(0);
@@ -123,7 +124,7 @@ export default function Main() {
                 </div>
 
                 {showAmenities && (
-                  <div className="absolute left-0 z-50 w-full p-3 bg-white rounded-lg shadow-lg top-10 sm:top-12">
+                  <div className="absolute left-0 w-full p-3 bg-white rounded-lg shadow-lg top-10 sm:top-12">
                     <div className="flex flex-col gap-2">
                       {features.map((feature, index) => (
                         <label key={index} className="flex items-center gap-2 cursor-pointer">
@@ -172,77 +173,12 @@ export default function Main() {
 
       <div className="w-[95%] sm:w-[90%] md:w-[85%] lg:w-4/5 mx-auto mt-4 sm:mt-6">
         <h2 className="mb-4 text-xl font-semibold text-center sm:text-2xl sm:mb-6">Доступные номера</h2>
-        <div className="space-y-3 sm:space-y-4">
+        <div className="space-y-4">
           {rooms.map((room, index) => (
-            <div key={index} className="flex flex-col gap-3 p-3 bg-white rounded-lg shadow-md sm:p-4 md:flex-row sm:gap-4">
-              <img
-                src={room.image}
-                alt={room.name}
-                className="w-full md:w-[250px] h-[160px] sm:h-[180px] object-cover rounded-lg"
-              />
-              <div className="flex flex-col flex-grow">
-                <div className="flex items-start justify-between">
-                  <h3 className="text-lg font-semibold sm:text-xl">{room.name}</h3>
-                  <div className="flex gap-1">
-                    {[...Array(room.rating)].map((_, i) => (
-                      <svg key={i} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#2B7FFF" className="w-4 h-4 sm:w-5 sm:h-5">
-                        <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clipRule="evenodd" />
-                      </svg>
-                    ))}
-                    {[...Array(5 - room.rating)].map((_, i) => (
-                      <svg key={i} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#BEDBFF" className="w-4 h-4 sm:w-5 sm:h-5">
-                        <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clipRule="evenodd" />
-                      </svg>
-                    ))}
-                  </div>
-                </div>
-                <p className="mt-1 text-xs text-gray-600 sm:mt-2 sm:text-sm">{room.description}</p>
-                <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-2 sm:mt-3">
-                  {room.features.map((feature, i) => (
-                    <div key={i} className="flex items-center gap-1 bg-blue-100 text-blue-500 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-xs sm:text-sm">
-                      {feature === "Завтрак в постель" && (
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3 sm:w-4 sm:h-4">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.871c1.355 0 2.697.056 4.024.166C17.155 8.51 18 9.473 18 10.608v2.513M15 8.25v-1.5m-6 1.5v-1.5m12 9.75-1.5.75a3.354 3.354 0 0 1-3 0 3.354 3.354 0 0 0-3 0 3.354 3.354 0 0 1-3 0 3.354 3.354 0 0 0-3 0 3.354 3.354 0 0 1-3 0L3 16.5m15-3.379a48.474 48.474 0 0 0-6-.371c-2.032 0-4.034.126-6 .371m12 0c.39.049.777.102 1.163.16 1.07.16 1.837 1.094 1.837 2.175v5.169c0 .621-.504 1.125-1.125 1.125H4.125A1.125 1.125 0 0 1 3 20.625v-5.17c0-1.08.768-2.014 1.837-2.174A47.78 47.78 0 0 1 6 13.12M12.265 3.11a.375.375 0 1 1-.53 0L12 2.845l.265.265Zm-3 0a.375.375 0 1 1-.53 0L9 2.845l.265.265Zm6 0a.375.375 0 1 1-.53 0L15 2.845l.265.265Z" />
-                        </svg>
-                      )}
-                      {feature === "Шумоизоляция" && (
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3 sm:w-4 sm:h-4">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 9.75 19.5 12m0 0 2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6 4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z" />
-                        </svg>
-                      )}
-                      {feature === "Есть интернет" && (
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3 sm:w-4 sm:h-4">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z" />
-                        </svg>
-                      )}
-                      {feature === "Есть компьютер" && (
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3 sm:w-4 sm:h-4">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25" />
-                        </svg>
-                      )}
-                      {feature === "Биометрический ключ" && (
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3 sm:w-4 sm:h-4">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M7.864 4.243A7.5 7.5 0 0 1 19.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 0 0 4.5 10.5a7.464 7.464 0 0 1-1.15 3.993m1.989 3.559A11.209 11.209 0 0 0 8.25 10.5a3.75 3.75 0 1 1 7.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 0 1-3.6 9.75m6.633-4.596a18.666 18.666 0 0 1-2.485 5.33" />
-                        </svg>
-                      )}
-                      {feature === "Личный дворецкий" && (
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3 sm:w-4 sm:h-4">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-                        </svg>
-                      )}
-                      {feature}
-                    </div>
-                  ))}
-                </div>
-                <button className="mt-3 sm:mt-4 w-full sm:w-fit bg-blue-500 hover:bg-blue-600 text-white px-4 py-1.5 rounded-lg text-sm">
-                  Забронировать • {room.price} ₽
-                </button>
-              </div>
-            </div>
+            <CardRoom key={index} {...room} index={index} />
           ))}
         </div>
       </div>
-      <RoomCard />
       <RatingFilter />
       <FeaturesSelection />
       <div className="flex justify-center mt-8 mb-8">
