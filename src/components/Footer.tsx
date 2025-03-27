@@ -12,21 +12,21 @@ export default function Footer() {
     return (
         <>
             <footer className="w-full sticky top-0 shadow-(--custom-shadow) bg-white px-4 py-8 border-t border-gray-200">
-                <div className="relative flex items-center justify-between w-full m-auto max-w-7xl">
-                    <div className="flex flex-col gap-2">
-                        <h2 className="mb-2 text-xl font-semibold">Страницы</h2>
-                        <button onClick={() => setIsOpen(true)} className="block text-left text-blue-500">История бронирования</button>
-                        <button onClick={() => navigate('/login')} className="block text-left text-blue-500">Авторизация</button>
-                        <button onClick={() => navigate('/')} className="block text-left text-blue-500">Главная</button>
-                    </div>
-                    <div className="absolute flex flex-col items-center justify-center gap-2 top-1/2 left-1/2 -translate-2/4">
-                        <div onClick={() => navigate('/')} className="flex flex-col items-center gap-2 transition-all duration-300 cursor-pointer hover:scale-90">
+                <div className="relative flex flex-col items-center justify-between w-full gap-12 m-auto sm:gap-0 sm:flex-row max-w-7xl">
+                    <div className="flex flex-col items-center justify-center order-first gap-2 sm:absolute sm:top-1/2 sm:left-1/2 sm:-translate-2/4">
+                        <div onClick={() => navigate('/')} className="flex flex-col items-center gap-2 transition-all duration-300 cursor-pointer hover:scale-90 active:scale-90 touch-action-manipulation">
                             <img src={logo} alt="logo" className="w-10 h-10" />
                             <h1 className="text-2xl font-semibold">Высота 1488</h1>
                         </div>
                         <p className="text-black/50 ">© 2025, Все права защищены</p>
                     </div>
-                    <div className="flex flex-col items-end gap-2">
+                    <div className="flex flex-col items-center gap-2 sm:items-start">
+                        <h2 className="mb-2 text-xl font-semibold">Страницы</h2>
+                        <button onClick={() => setIsOpen(true)} className="block text-left text-blue-500 transition-all duration-300 cursor-pointer hover:scale-90 active:scale-90 active:text-orange-500 touch-action-manipulation">История бронирования</button>
+                        <button onClick={() => navigate('/login')} className="block text-left text-blue-500 transition-all duration-300 cursor-pointer hover:scale-90 active:scale-90 active:text-orange-500 touch-action-manipulation">Авторизация</button>
+                        <button onClick={() => navigate('/')} className="block text-left text-blue-500 transition-all duration-300 cursor-pointer hover:scale-90 active:scale-90 active:text-orange-500 touch-action-manipulation">Главная</button>
+                    </div>
+                    <div className="flex flex-col items-center gap-2 sm:items-end">
                         <h2 className="mb-2 text-xl font-semibold">Над проектом работали</h2>
                         <p>Демьяненко Владислав</p>
                         <p>Сафонов Максим</p>

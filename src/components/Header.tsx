@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import logo from '@/assets/logo.svg';
+import Button from '@/components/Button';
 import ModalHistory from '@/components/ModalHistory';
 
 export default function Header() {
@@ -13,12 +14,12 @@ export default function Header() {
         <>
             <header className="w-full sticky top-0 shadow-(--custom-shadow) bg-white p-4 border-b border-gray-200">
                 <div className="flex items-center justify-between w-full m-auto max-w-7xl">
-                    <div onClick={() => navigate('/')} className="flex items-center gap-4 transition-all duration-300 cursor-pointer hover:scale-90">
+                    <div onClick={() => navigate('/')} className="flex items-center gap-4 transition-transform duration-200 cursor-pointer hover:scale-90 active:scale-90 [&:active]:scale-90 [-webkit-tap-highlight-color:transparent]">
                         <img src={logo} alt="logo" className="w-10 h-10" />
-                        <h1 className="text-2xl font-semibold">Высота 1488</h1>
+                        <h1 className="hidden text-2xl font-semibold sm:block">Высота 1488</h1>
                     </div>
-                    <div className="flex items-center gap-8 space-x-4">
-                        <button onClick={() => setIsOpen(true)} className="px-4 py-2 font-semibold text-white bg-blue-500 rounded-lg">История бронирования</button>
+                    <div className="flex items-center gap-4 sm:gap-8">
+                        <Button onClick={() => setIsOpen(true)}>История</Button>
                         <div className="flex items-center gap-4">
                             <div className="p-2 bg-blue-200 rounded-full">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="size-6">
@@ -26,7 +27,7 @@ export default function Header() {
                                 </svg>
                             </div>
                             <p className="text-xl font-semibold text-black">Иван</p>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="grey" className="size-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} className="transition-transform duration-200 cursor-pointer stroke-gray-500 hover:scale-90 active:scale-90 [&:active]:scale-90 active:stroke-orange-500 size-6 [-webkit-tap-highlight-color:transparent]">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
                             </svg>
                         </div>
