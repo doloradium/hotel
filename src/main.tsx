@@ -7,6 +7,7 @@ import Register from '@/pages/Register'
 import Login from '@/pages/Login'
 import Main from '@/pages/Main'
 import Room from '@/pages/Room'
+import Authorization from '@/pages/Authorization'
 import './index.css'
 
 createRoot(document.getElementById('root')!).render(
@@ -19,6 +20,7 @@ createRoot(document.getElementById('root')!).render(
         </Route>
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/authorization' element={<Authorization />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
