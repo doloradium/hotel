@@ -11,20 +11,8 @@ export default function Main() {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(55000);
   const [rating, setRating] = useState(0);
-  const [showStartCalendar, setShowStartCalendar] = useState(false);
-  const [showEndCalendar, setShowEndCalendar] = useState(false);
   const [showAmenities, setShowAmenities] = useState(false);
-  const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
   const [isHovered, setIsHovered] = useState(false);
-
-  const features = [
-    "Шумоизоляция",
-    "Биометрический ключ",
-    "Завтрак в постель",
-    "Есть интернет",
-    "Есть компьютер",
-    "Личный дворецкий"
-  ];
 
   const rooms = [
     {
@@ -110,7 +98,7 @@ export default function Main() {
               className={`flex items-center w-full h-12 px-4 text-sm text-gray-400 border border-gray-200 cursor-pointer bg-gray-50 col-span-2 transition-all duration-300 rounded-sm`}
               onClick={() => setShowAmenities(!showAmenities)}
             >
-              {selectedAmenities.length ? `Выбрано: ${selectedAmenities.length}` : 'Удобства'}
+              Удобства
             </div>
             <select
               value={rating}
