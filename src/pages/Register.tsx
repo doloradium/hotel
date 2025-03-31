@@ -1,96 +1,37 @@
-import { useState } from 'react'
-import { Link } from 'react-router'
+import Button from '@/components/Button';
 
 export default function Register() {
-    const [showPassword, setShowPassword] = useState(false)
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-                <h1 className="text-3xl font-bold text-center mb-6">Регистрация</h1>
-                
-                <form className="space-y-4">
-                    <div>
-                        <input 
-                            type="text" 
-                            placeholder="Имя" 
-                            className="w-full px-4 py-3 bg-gray-100 rounded-lg focus:outline-none"
-                        />
-                    </div>
-                    
-                    <div>
-                        <input 
-                            type="email" 
-                            placeholder="Почта" 
-                            className="w-full px-4 py-3 bg-gray-100 rounded-lg focus:outline-none"
-                        />
-                    </div>
-                    
-                    <div className="relative">
-                        <input 
-                            type={showPassword ? "text" : "password"} 
-                            placeholder="Пароль" 
-                            className="w-full px-4 py-3 bg-gray-100 rounded-lg focus:outline-none"
-                        />
-                        <button 
-                            type="button"
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
-                            onClick={() => setShowPassword(!showPassword)}
-                        >
-                            {showPassword ? (
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                                    <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
-                                </svg>
-                            ) : (
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fillRule="evenodd" d="M3.28 2.22a.75.75 0 00-1.06 1.06l14.5 14.5a.75.75 0 101.06-1.06l-1.745-1.745a10.029 10.029 0 003.3-4.38 1.651 1.651 0 000-1.185A10.004 10.004 0 009.999 3a9.956 9.956 0 00-4.744 1.194L3.28 2.22zM7.752 6.69l1.092 1.092a2.5 2.5 0 013.374 3.373l1.091 1.092a4 4 0 00-5.557-5.557z" clipRule="evenodd" />
-                                    <path d="M10.748 13.93l2.523 2.523a9.987 9.987 0 01-3.27.547c-4.258 0-7.894-2.66-9.337-6.41a1.651 1.651 0 010-1.186A10.007 10.007 0 012.839 6.02L6.07 9.252a4 4 0 004.678 4.678z" />
-                                </svg>
-                            )}
-                        </button>
-                    </div>
-                    
-                    <div className="relative">
-                        <input 
-                            type={showConfirmPassword ? "text" : "password"} 
-                            placeholder="Подтвердите пароль" 
-                            className="w-full px-4 py-3 bg-gray-100 rounded-lg focus:outline-none"
-                        />
-                        <button 
-                            type="button"
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
-                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        >
-                            {showConfirmPassword ? (
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                                    <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
-                                </svg>
-                            ) : (
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fillRule="evenodd" d="M3.28 2.22a.75.75 0 00-1.06 1.06l14.5 14.5a.75.75 0 101.06-1.06l-1.745-1.745a10.029 10.029 0 003.3-4.38 1.651 1.651 0 000-1.185A10.004 10.004 0 009.999 3a9.956 9.956 0 00-4.744 1.194L3.28 2.22zM7.752 6.69l1.092 1.092a2.5 2.5 0 013.374 3.373l1.091 1.092a4 4 0 00-5.557-5.557z" clipRule="evenodd" />
-                                    <path d="M10.748 13.93l2.523 2.523a9.987 9.987 0 01-3.27.547c-4.258 0-7.894-2.66-9.337-6.41a1.651 1.651 0 010-1.186A10.007 10.007 0 012.839 6.02L6.07 9.252a4 4 0 004.678 4.678z" />
-                                </svg>
-                            )}
-                        </button>
-                    </div>
-                    
-                    <button 
-                        type="submit" 
-                        className="w-full bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 transition duration-300"
-                    >
+        <div className="flex flex-col items-center justify-center min-h-screen gap-4 p-4">
+            <div className="w-full max-w-md flex flex-col gap-8 items-center p-8 border border-gray-200 bg-white shadow-(--custom-shadow) rounded-xl">
+                <h1 className="text-2xl font-semibold text-center">Регистрация</h1>
+                <form className="flex flex-col items-center w-full space-y-4">
+                    <input
+                        type="text"
+                        className="w-full h-10 px-4 py-2 placeholder-gray-400 border border-gray-200 rounded-lg bg-gray-50"
+                        placeholder="Имя"
+                    />
+                    <input
+                        type="email"
+                        className="w-full h-10 px-4 py-2 placeholder-gray-400 border border-gray-200 rounded-lg bg-gray-50"
+                        placeholder="Почта"
+                    />
+                    <input
+                        type="password"
+                        className="w-full h-10 px-4 py-2 placeholder-gray-400 border border-gray-200 rounded-lg bg-gray-50"
+                        placeholder="Пароль"
+                    />
+                    <input
+                        type="password"
+                        className="w-full h-10 px-4 py-2 placeholder-gray-400 border border-gray-200 rounded-lg bg-gray-50"
+                        placeholder="Повторите пароль"
+                    />
+                    <Button type='submit' className='mt-4'>
                         Зарегистрироваться
-                    </button>
+                    </Button>
                 </form>
-                
-                <div className="text-center mt-6">
-                    <Link to="/authorization" className="text-blue-500 hover:underline">
-                        Уже есть аккаунт? Войти
-                    </Link>
-                </div>
             </div>
+            <a href="login" className="block text-left text-blue-500 transition-all duration-300 cursor-pointer hover:scale-90 active:scale-90 active:text-orange-500 touch-action-manipulation">Уже есть аккаунт? Войти</a>
         </div>
     )
 }

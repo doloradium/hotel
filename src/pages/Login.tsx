@@ -1,33 +1,25 @@
 export default function Login() {
   return (
-    <div className="flex items-center justify-center min-h-screen p-4 bg-gray-50">
-      <div className="w-full max-w-md p-6 bg-white shadow-lg rounded-xl sm:p-8">
-        <h2 className="mb-6 text-2xl font-bold text-center sm:text-3xl">Вход в систему</h2>
-        <form className="space-y-4">
-          <div>
-            <label className="block mb-1 text-sm font-medium text-gray-700">Email</label>
-            <input
-              type="email"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Введите ваш email"
-            />
-          </div>
-          <div>
-            <label className="block mb-1 text-sm font-medium text-gray-700">Пароль</label>
-            <input
-              type="password"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Введите ваш пароль"
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full px-4 py-2 text-white transition-colors bg-blue-500 rounded-lg hover:bg-blue-600"
-          >
+    <div className="flex flex-col items-center justify-center min-h-screen gap-4 p-4">
+      <div className="w-full max-w-md flex flex-col gap-8 items-center p-8 border border-gray-200 bg-white shadow-(--custom-shadow) rounded-xl">
+        <h1 className="text-2xl font-semibold text-center">Вход в систему</h1>
+        <form className="flex flex-col items-center w-full space-y-4">
+          <input
+            type="email"
+            className="w-full h-10 px-4 py-2 placeholder-gray-400 border border-gray-200 rounded-lg bg-gray-50"
+            placeholder="Почта"
+          />
+          <input
+            type="password"
+            className="w-full h-10 px-4 py-2 placeholder-gray-400 border border-gray-200 rounded-lg bg-gray-50"
+            placeholder="Пароль"
+          />
+          <Button type='submit' className='mt-4'>
             Войти
-          </button>
+          </Button>
         </form>
       </div>
+      <a href="register" className="block text-left text-blue-500 transition-all duration-300 cursor-pointer hover:scale-90 active:scale-90 active:text-orange-500 touch-action-manipulation">Нет аккаунта? Зарегистрироваться</a>
     </div>
   );
 }
@@ -37,6 +29,8 @@ import { useState } from 'react';
 import {
     FaDesktop, FaHandSparkles, FaKey, FaStar, FaUtensils, FaVolumeMute, FaWifi
 } from 'react-icons/fa';
+
+import Button from '@/components/Button';
 
 export function FeaturesSelection() {
   const features = [

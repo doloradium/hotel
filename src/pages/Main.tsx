@@ -115,7 +115,7 @@ export default function Main() {
       </div>
 
       <div className="w-full p-4 mx-auto max-w-7xl">
-        <h2 className="mb-4 text-2xl font-semibold text-center">Доступные номера</h2>
+        <h2 className="mb-10 text-2xl font-semibold text-center">Доступные номера</h2>
         <div className="space-y-4">
           {rooms.map((room, index) => (
             <CardRoom key={index} {...room} index={index} />
