@@ -43,48 +43,47 @@ export default function Main() {
 
   return (
     <div className="min-h-screen">
-      <div style={{ backgroundImage: `url(${heroImage})` }} className={`w-full relative h-120 sm:h-96 bg-cover bg-center p-4 mb-60 sm:mb-32`}>
+      <div style={{ backgroundImage: `url(${heroImage})` }} className={`w-full relative h-120 sm:h-96 bg-cover bg-center p-4 mb-36 sm:mb-24`}>
         <div className="bg-white p-4 rounded-2xl shadow-(--custom-shadow) w-[calc(100%-2rem)] max-w-7xl absolute top-full left-1/2 -translate-1/2">
-          <div className="grid grid-cols-8 gap-1">
-            <div className="col-span-2 mb-1 text-xs text-gray-500 sm:text-sm">Стоимость за сутки</div>
-            <div className="col-span-2 mb-1 text-xs text-gray-500 sm:text-sm">Даты пребывания</div>
-            <div className="col-span-2 mb-1 text-xs text-gray-500 sm:text-sm">Количество человек</div>
-            <div className="col-span-2"></div>
+          <div className="grid grid-cols-2 gap-1 sm:grid-cols-8">
+            <div className="hidden text-gray-500 sm:block sm:col-span-2">Стоимость</div>
+            <div className="hidden text-gray-500 sm:block sm:col-span-2">Даты пребывания</div>
+            <div className="hidden sm:col-span-4 sm:block"></div>
 
             <input
               type="number"
               placeholder="от 0"
-              className={`w-full h-12 px-4 text-sm text-gray-400 placeholder-gray-400 border border-gray-200 bg-gray-50 col-span-1 transition-all duration-300 rounded-sm rounded-tl-2xl`}
+              className={`w-full h-10 px-4 text-gray-400 placeholder-gray-400 border border-gray-200 bg-gray-50 sm:col-span-1 transition-all duration-300 rounded-sm rounded-tl-2xl`}
               value={minPrice}
               onChange={(e) => setMinPrice(Number(e.target.value))}
             />
             <input
               type="number"
               placeholder="до 55 000"
-              className={`w-full h-12 px-4 text-sm text-gray-400 placeholder-gray-400 border border-gray-200 bg-gray-50 col-span-1 transition-all duration-300 rounded-sm`}
+              className={`w-full h-10 px-4 text-gray-400 placeholder-gray-400 border border-gray-200 bg-gray-50 sm:col-span-1 transition-all duration-300 sm:rounded-tr-sm rounded-tr-2xl rounded-sm`}
               value={maxPrice}
               onChange={(e) => setMaxPrice(Number(e.target.value))}
             />
             <input
               type="text"
               placeholder="Заезд"
-              className={`w-full h-12 px-4 text-sm text-gray-400 placeholder-gray-400 border border-gray-200 cursor-pointer bg-gray-50 col-span-2 transition-all duration-300 rounded-sm`}
+              className={`w-full h-10 px-4 text-gray-400 placeholder-gray-400 border border-gray-200 cursor-pointer bg-gray-50 sm:col-span-2 transition-all duration-300 rounded-sm`}
               value={''}
               readOnly
             />
             <input
               type="text"
               placeholder="Выезд"
-              className={`w-full h-12 px-4 text-sm text-gray-400 placeholder-gray-400 border border-gray-200 cursor-pointer bg-gray-50 col-span-2 transition-all duration-300 ${isHovered ? 'rounded-sm rounded-tr-2xl' : 'rounded-sm'}`}
+              className={`w-full h-10 px-4 text-gray-400 placeholder-gray-400 border border-gray-200 cursor-pointer bg-gray-50 sm:col-span-2 transition-all duration-300 ${isHovered ? 'rounded-sm sm:rounded-tr-2xl' : 'rounded-sm'}`}
               value={''}
               readOnly
             />
             <div
-              className="col-span-2 row-span-2"
+              className="order-last col-span-2 sm:order-none sm:col-span-2 sm:row-span-2"
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             >
-              <Button className="w-full h-full rounded-sm hover:rounded-2xl rounded-tr-2xl rounded-br-2xl">
+              <Button className="w-full h-full rounded-sm rounded-t-sm hover:rounded-2xl rounded-b-2xl sm:rounded-tr-2xl sm:rounded-l-sm">
                 Найти
               </Button>
             </div>
@@ -92,24 +91,24 @@ export default function Main() {
             <input
               type="number"
               placeholder="1"
-              className={`w-full h-12 px-4 text-sm text-gray-400 placeholder-gray-400 border border-gray-200 bg-gray-50 col-span-2 transition-all duration-300 rounded-sm rounded-bl-2xl`}
+              className={`w-full h-10 px-4 text-gray-400 placeholder-gray-400 border border-gray-200 bg-gray-50 sm:col-span-2 transition-all duration-300 rounded-sm sm:rounded-bl-2xl`}
             />
-            <div
-              className={`flex items-center w-full h-12 px-4 text-sm text-gray-400 border border-gray-200 cursor-pointer bg-gray-50 col-span-2 transition-all duration-300 rounded-sm`}
-              onClick={() => setShowAmenities(!showAmenities)}
-            >
-              Удобства
-            </div>
             <select
               value={rating}
               onChange={(e) => setRating(Number(e.target.value))}
-              className={`w-full h-12 px-4 text-sm text-gray-400 border border-gray-200 bg-gray-50 col-span-2 transition-all duration-300 ${isHovered ? 'rounded-sm rounded-br-2xl' : 'rounded-sm'}`}
+              className={`w-full h-10 px-4 text-gray-400 border border-gray-200 bg-gray-50 sm:col-span-2 transition-all duration-300`}
             >
               <option value={0}>Рейтинг</option>
               {[1, 2, 3, 4, 5].map((star) => (
                 <option key={star} value={star}>{star} ★</option>
               ))}
             </select>
+            <div
+              className={`flex items-center w-full h-10 px-4 text-gray-400 border border-gray-200 cursor-pointer bg-gray-50 col-span-2 transition-all duration-300 ${isHovered ? 'rounded-sm sm:rounded-br-2xl' : 'rounded-sm'}`}
+              onClick={() => setShowAmenities(!showAmenities)}
+            >
+              Удобства
+            </div>
           </div>
         </div>
       </div>
