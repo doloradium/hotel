@@ -20,6 +20,7 @@ export default function Main() {
   return (
     <div className="min-h-screen">
       <div style={{ backgroundImage: `url(${heroImage})` }} className={`w-full relative h-120 sm:h-96 bg-cover bg-center p-4 mb-36 sm:mb-24`}>
+        <h1 className='absolute w-[calc(100%-2rem)] px-8 py-4 text-3xl font-semibold text-center text-gray-800 sm:whitespace-pre sm:w-fit top-1/2 left-1/2 -translate-x-1/2 -translate-y-8/7 sm:-translate-y-5/6 bg-white/50 backdrop-blur-sm rounded-2xl'>Лучший горный курорт в России</h1>
         <div className="absolute w-full p-4 max-w-7xl top-full left-1/2 -translate-1/2">
           <div className="grid grid-cols-2 gap-1 p-4 rounded-2xl shadow-(--custom-shadow) bg-white border border-gray-200 sm:grid-cols-8">
             <input
