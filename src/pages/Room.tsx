@@ -78,8 +78,8 @@ export default function Room() {
   ];
 
   return (
-    <div className="w-full p-4 m-auto max-w-7xl bg-gray-50">
-      <div className="flex flex-col gap-4 mb-16 lg:flex-row sm:gap-6 lg:gap-10">
+    <div className="w-full p-4 m-auto max-w-7xl">
+      <div className="flex flex-col gap-8 mb-16 md:flex-row">
         <div className='flex flex-col gap-4'>
           <div className="flex justify-between w-full">
             <h2 className="text-2xl font-semibold">Номер "Люкс"</h2>
@@ -93,16 +93,16 @@ export default function Room() {
               </div>
             ))}
           </div>
-          <img
-            src="https://standarthotel.com/upload/iblock/1ea/1eaaf3d47deeafcff9b1931a8fad2dc1.jpg"
-            alt="Room"
-            className="object-cover w-full rounded-lg h-72"
-          />
-        </div>
-        <div className="flex flex-col items-center gap-4 w-fitc">
-          <div className="mt-4">
-            <Calendar className="w-full max-w-full p-2 border rounded-lg" />
+          <div className="relative w-full md:h-full h-80">
+            <img
+              src="https://standarthotel.com/upload/iblock/1ea/1eaaf3d47deeafcff9b1931a8fad2dc1.jpg"
+              alt="Room"
+              className="absolute top-0 left-0 object-cover w-full h-full overflow-hidden rounded-lg"
+            />
           </div>
+        </div>
+        <div className="flex flex-col items-center w-full gap-8 sm:w-fit h-fit">
+          <Calendar />
           <Button>Забронировать • 12 000 ₽</Button>
         </div>
       </div>

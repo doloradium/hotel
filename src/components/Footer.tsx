@@ -11,7 +11,7 @@ export default function Footer() {
 
     return (
         <>
-            <footer className="w-full z-1 sticky top-0 shadow-(--custom-shadow) bg-white py-8 border-t border-gray-200">
+            <footer className="w-full z-3 sticky top-0 shadow-(--custom-shadow) bg-white py-8 border-t border-gray-200">
                 <div className="relative flex flex-col items-center justify-between w-full gap-12 p-4 m-auto sm:gap-0 sm:flex-row max-w-7xl">
                     <div className="flex flex-col items-center justify-center order-first gap-2 sm:absolute sm:top-1/2 sm:left-1/2 sm:-translate-2/4">
                         <div onClick={() => navigate('/')} className="flex flex-col items-center gap-2 transition-all duration-300 cursor-pointer hover:scale-90 active:scale-90 touch-action-manipulation">

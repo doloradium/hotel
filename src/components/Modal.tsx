@@ -25,7 +25,7 @@ export default function Modal({ isOpen, setIsOpen, children }: ModalProps) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     onClick={() => setIsOpen(false)}
-                    className="fixed top-0 left-0 flex items-center justify-center w-full h-full backdrop-blur-xs z-2 bg-black/25"
+                    className="fixed top-0 left-0 flex items-center justify-center w-full h-full backdrop-blur-xs z-4 bg-black/25"
                 >
                     <div className="flex w-full h-full px-4 py-16 overflow-y-scroll">
                         <motion.div

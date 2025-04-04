@@ -12,7 +12,7 @@ export default function Header() {
 
     return (
         <>
-            <header className="w-full sticky top-0 shadow-(--custom-shadow) bg-white border-b z-1 border-gray-200">
+            <header className="w-full sticky top-0 shadow-(--custom-shadow) bg-white border-b z-3 border-gray-200">
                 <div className="flex items-center justify-between w-full p-4 m-auto max-w-7xl">
                     <div onClick={() => navigate('/')} className="flex items-center gap-4 transition-transform duration-200 cursor-pointer hover:scale-90 active:scale-90">
                         <img src={logo} alt="logo" className="w-10 h-10" />
