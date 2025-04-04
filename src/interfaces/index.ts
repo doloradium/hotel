@@ -2,6 +2,7 @@ export interface ModalProps {
     isOpen: boolean
     setIsOpen: (isOpen: boolean) => void
     children: React.ReactNode
+    className?: string
 }
 
 export interface ModalChildProps {
@@ -17,4 +18,11 @@ export interface Room {
     rating: number;
     image: string;
     index: number;
+}
+
+export interface TagProps {
+    name: string;
+    isActive?: boolean;
+    isClickable?: boolean;
+    onClick?: () => void;
 }

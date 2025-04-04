@@ -2,8 +2,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 
 import Button from '@/components/Button';
+import { monthNames } from '@/data/constants';
 
-export default function CustomCalendar() {
+export default function Calendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const handlePreviousMonth = () => {
@@ -13,11 +14,6 @@ export default function CustomCalendar() {
   const handleNextMonth = () => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
   };
-
-  const monthNames = [
-    "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
-    "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
-  ];
 
   const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
   const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 import { ModalProps } from '@/interfaces';
 
-export default function Modal({ isOpen, setIsOpen, children }: ModalProps) {
+export default function Modal({ isOpen, setIsOpen, children, className }: ModalProps) {
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden'
@@ -25,7 +25,7 @@ export default function Modal({ isOpen, setIsOpen, children }: ModalProps) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     onClick={() => setIsOpen(false)}
-                    className="fixed top-0 left-0 flex items-center justify-center w-full h-full backdrop-blur-xs z-4 bg-black/25"
+                    className="fixed top-0 left-0 flex items-center justify-center w-full h-full cursor-pointer backdrop-blur-xs z-4 bg-black/25"
                 >
                     <div className="flex w-full h-full px-4 py-16 overflow-y-scroll">
                         <motion.div
@@ -34,7 +34,7 @@ export default function Modal({ isOpen, setIsOpen, children }: ModalProps) {
                             exit={{ y: '10%' }}
                             transition={{ ease: 'circOut' }}
                             onClick={(e) => e.stopPropagation()}
-                            className="relative w-full p-4 m-auto bg-white shadow-(--custom-shadow) sm:p-8 h-fit rounded-2xl sm:w-3xl border border-gray-200"
+                            className={`relative w-full cursor-default p-4 m-auto bg-white shadow-(--custom-shadow) sm:p-8 h-fit rounded-2xl sm:w-3xl border border-gray-200 ${className}`}
                         >
                             <button onClick={() => setIsOpen(false)} className="absolute top-4 right-4 sm:top-8 sm:right-8">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} className="transition-all duration-300 cursor-pointer stroke-blue-500 hover:scale-90 active:stroke-orange-500 size-8">
