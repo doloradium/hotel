@@ -42,13 +42,13 @@ export default function Calendar() {
         transition={{ duration: 0.1, ease: "linear" }}
         className={`sm:w-md w-full overflow-hidden bg-white sm:p-8 p-4 rounded-xl shadow-(--custom-shadow) text-center border border-gray-200`}
       >
-        <div className="flex items-center justify-between">
+        <div className="relative flex items-center justify-between w-full">
           <Button isMain={false} onClick={handlePreviousMonth}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
             </svg>
           </Button>
-          <h2 className="text-xl font-semibold">{monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}</h2>
+          <h2 className="absolute text-xl font-semibold top-1/2 -translate-1/2 left-1/2">{monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}</h2>
           <Button isMain={false} onClick={handleNextMonth}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
