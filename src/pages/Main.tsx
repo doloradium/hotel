@@ -44,7 +44,7 @@ export default function Main() {
   return (
     <div className="min-h-screen">
       <div style={{ backgroundImage: `url(${heroImage})` }} className={`w-full relative h-120 sm:h-96 bg-cover bg-center p-4 mb-36 sm:mb-24`}>
-        <div className="bg-white p-4 rounded-2xl shadow-(--custom-shadow) w-[calc(100%-2rem)] max-w-7xl absolute top-full left-1/2 -translate-1/2">
+        <div className="bg-white p-4 border border-gray-200 rounded-2xl shadow-(--custom-shadow) w-[calc(100%-2rem)] max-w-7xl absolute top-full left-1/2 -translate-1/2">
           <div className="grid grid-cols-2 gap-1 sm:grid-cols-8">
             <div className="hidden text-gray-500 sm:block sm:col-span-2">Стоимость</div>
             <div className="hidden text-gray-500 sm:block sm:col-span-2">Даты пребывания</div>

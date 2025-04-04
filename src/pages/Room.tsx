@@ -1,7 +1,27 @@
 import { useState } from 'react';
 
+import Button from '@/components/Button';
 import Calendar from '@/components/Calendar';
 import ModalReview from '@/components/ModalReview';
+import Stars from '@/components/Stars';
+
+const reviews = [
+  {
+    name: 'Адольф',
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+    stars: 4
+  },
+  {
+    name: 'Владимир',
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+    stars: 3
+  },
+  {
+    name: 'Дядя Саша',
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
+    stars: 5
+  },
+]
 
 export default function Room() {
   const [isOpen, setIsOpen] = useState(false)
@@ -58,92 +78,50 @@ export default function Room() {
   ];
 
   return (
-    <div className="min-h-screen p-4 sm:p-6 md:p-10 bg-gray-50">
-      <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-10">
-        <div className="p-4 sm:p-6 bg-white rounded-lg shadow-md">
-          <h2 className="text-xl sm:text-2xl font-semibold">Номер "Люкс"</h2>
-          <p className="text-sm sm:text-base text-gray-600 mt-2">Данный номер имеет окно с видом на гору Эверест, а еще в нем ночевал Владимир Путин</p>
-          <div className="flex gap-1 sm:gap-2 my-3 sm:my-4">
-            {
-              [1, 2, 3, 4, 5].map((_, index) => (
-                <svg key={index} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#2B7FFF" className="w-4 h-4 sm:w-5 sm:h-5">
-                  <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clipRule="evenodd" />
-                </svg>
-              ))
-            }
+    <div className="w-full p-4 m-auto max-w-7xl bg-gray-50">
+      <div className="flex flex-col gap-4 mb-16 lg:flex-row sm:gap-6 lg:gap-10">
+        <div className='flex flex-col gap-4'>
+          <div className="flex justify-between w-full">
+            <h2 className="text-2xl font-semibold">Номер "Люкс"</h2>
+            <Stars rating={4} />
           </div>
-          <div className='flex flex-wrap gap-2'>
-            {
-              icon_filter.map((item) => (
-                <div key={item.id} className='flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm text-blue-500 bg-blue-200 rounded-lg'>
-                  {item.icon}
-                  {item.text}
-                </div>
-              ))
-            }
+          <p className="text-gray-500">Данный номер имеет окно с видом на гору Эверест, а еще в нем ночевал Владимир Путин</p>
+          <div className="flex flex-wrap gap-1">
+            {icon_filter.map((item, index) => (
+              <div key={index} className="flex items-center gap-1 bg-blue-100 text-blue-500 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg h-fit">
+                {item.text} {item.icon}
+              </div>
+            ))}
           </div>
-          <img 
-            src="https://standarthotel.com/upload/iblock/1ea/1eaaf3d47deeafcff9b1931a8fad2dc1.jpg" 
-            alt="Room" 
-            className="w-full h-48 sm:h-64 object-cover rounded-lg mt-4 sm:mt-6" 
+          <img
+            src="https://standarthotel.com/upload/iblock/1ea/1eaaf3d47deeafcff9b1931a8fad2dc1.jpg"
+            alt="Room"
+            className="object-cover w-full rounded-lg h-72"
           />
         </div>
-        <div className="p-4 sm:p-6 bg-white rounded-lg shadow-md w-full">
-          <h2 className="text-xl sm:text-2xl font-semibold">Выберите дату</h2>
+        <div className="flex flex-col items-center gap-4 w-fitc">
           <div className="mt-4">
-            <Calendar className="p-2 border rounded-lg w-full max-w-full" />
+            <Calendar className="w-full max-w-full p-2 border rounded-lg" />
           </div>
-          <button className="w-full px-4 py-2 mt-4 text-sm sm:text-base text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors">
-            Забронировать • 12 000 ₽
-          </button>
+          <Button>Забронировать • 12 000 ₽</Button>
         </div>
       </div>
-      <div className="mt-6 sm:mt-10">
-        <div className="relative flex items-center">
-          <button 
-            onClick={() => setIsOpen(true)} 
-            className="px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base font-semibold text-blue-500 bg-blue-200 rounded-lg hover:bg-blue-300 transition-colors"
-          >
-            Оставить отзыв
-          </button>
-          <h2 className="absolute left-1/2 -translate-x-1/2 text-xl sm:text-2xl font-semibold">Отзывы</h2>
+      <div className='mb-8'>
+        <div className="relative flex items-center mb-8">
+          <Button isMain={false} onClick={() => setIsOpen(true)}>
+            <div className="hidden sm:block">Оставить отзыв</div>
+            <div className="block font-semibold sm:hidden">+</div>
+          </Button>
+          <h2 className="absolute text-2xl font-semibold -translate-x-1/2 left-1/2">Отзывы</h2>
         </div>
-        <div className="mt-4 space-y-3 sm:space-y-4">
-          {["Владимир", "Франц", "Дональд"].map((name, index) => (
-            <div key={index} className="p-3 sm:p-4 bg-white rounded-lg shadow-md">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <div className="p-1.5 sm:p-2 bg-blue-200 rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-4 h-4 sm:w-5 sm:h-5">
-                      <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <h4 className="text-base sm:text-lg font-medium">{name}</h4>
-                </div>
-                <div className="flex gap-1">
-                  {
-                    [1, 2, 3, 4].map((_, i) => (
-                      <svg key={i} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#2B7FFF" className="w-4 h-4 sm:w-5 sm:h-5">
-                        <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clipRule="evenodd" />
-                      </svg>
-                    ))
-                  }
-                  {
-                    [1].map((_, i) => (
-                      <svg key={i} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#BEDBFF" className="w-4 h-4 sm:w-5 sm:h-5">
-                        <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clipRule="evenodd" />
-                      </svg>
-                    ))
-                  }
-                </div>
+        <div className="space-y-4">
+          {reviews.map((item, index) => (
+            <div key={index} className="w-full p-4 flex flex-col gap-4 bg-white border border-gray-200 rounded-2xl shadow-(--custom-shadow)">
+              <div className="flex justify-between w-full">
+                <div className="text-xl font-semibold">{item.name}</div>
+                <Stars rating={item.stars} />
               </div>
-              <p className="mt-2 text-sm sm:text-base text-gray-600">
-                {name === "Владимир" ?
-                  "Мне очень понравилось, всем рекомендую" :
-                  name === "Франц" ?
-                    "Проснувшись однажды утром после беспокойного сна, Грегор Замза обнаружил, что он у себя в постели превратился в страшное насекомое." :
-                    "Душа моя озарена неземной радостью, как эти чудесные весенние утра..."}
-              </p>
+              <p>{item.text}</p>
             </div>
           ))}
         </div>
