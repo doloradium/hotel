@@ -3,9 +3,9 @@ import { useState } from 'react';
 import Button from '@/components/Button';
 import Modal from '@/components/Modal';
 import Stars from '@/components/Stars';
-import { ModalChildProps } from '@/interfaces';
+import { Interface } from '@/interfaces';
 
-export default function ModalReview({ isOpen, setIsOpen }: ModalChildProps) {
+export default function ModalReview({ isOpen, setIsOpen }: Interface.ModalChildProps) {
     const [text, setText] = useState("");
 
     return (

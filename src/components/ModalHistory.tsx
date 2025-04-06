@@ -1,9 +1,9 @@
 import Button from '@/components/Button';
 import Modal from '@/components/Modal';
 import Stars from '@/components/Stars';
-import { ModalChildProps } from '@/interfaces';
+import { Interface } from '@/interfaces';
 
-export default function ModalHistory({ isOpen, setIsOpen }: ModalChildProps) {
+export default function ModalHistory({ isOpen, setIsOpen }: Interface.ModalChildProps) {
 
     const bookings = [
         { id: 1, name: "Номер “Люкс”", rating: 4, guests: 3, dates: "12.02.2002 — 16.02.2002", status: "edit" },

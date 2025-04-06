@@ -7,7 +7,8 @@ import CardRoom from '@/components/CardRoom';
 import ModalCalendar from '@/components/ModalCalendar';
 import ModalFilters from '@/components/ModalFilters';
 import ModalRating from '@/components/ModalRating';
-import { rooms } from '@/data/rooms';
+import { UserService } from '@/services';
+import { useQuery } from '@tanstack/react-query';
 
 export default function Main() {
   const [minPrice, setMinPrice] = useState('');
@@ -16,6 +17,8 @@ export default function Main() {
   const [isRatingOpen, setIsRatingOpen] = useState(false);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+
+  const { data: roomData, isLoading } = useQuery({ queryKey: ['getRooms'], queryFn: () => UserService.getRooms() });
 
   return (
     <div className="min-h-screen">
@@ -86,9 +89,23 @@ export default function Main() {
       <div className="w-full p-4 mx-auto max-w-7xl">
         <h2 className="mb-10 text-2xl font-semibold text-center">Доступные номера</h2>
         <div className="space-y-4">
-          {rooms.map((room, index) => (
-            <CardRoom key={index} {...room} index={index} />
-          ))}
+          {
+            isLoading
+            ? 
+            'Загрузка'
+            :
+            roomData?.data?.map((room, index) => (
+              <CardRoom 
+                description={room.description ?? ''} 
+                features={room.features ?? []} 
+                image={room.preview ?? ''} 
+                name={String(room.id)} 
+                key={index}
+                price={room.price}
+                rating={room.rating}
+              />
+            ))
+          }
         </div>
       </div>
       <div className="mx-auto my-8 w-fit">

@@ -1,9 +1,9 @@
 import Button from '@/components/Button';
 import Modal from '@/components/Modal';
 import Stars from '@/components/Stars';
-import { ModalChildProps } from '@/interfaces';
+import { Interface } from '@/interfaces';
 
-export default function ModalRating({ isOpen, setIsOpen }: ModalChildProps) {
+export default function ModalRating({ isOpen, setIsOpen }: Interface.ModalChildProps) {
     return (
         <Modal className='!p-0 !max-w-120' isOpen={isOpen} setIsOpen={setIsOpen}>
             <h2 className="mt-4 mb-8 text-2xl font-semibold text-center sm:mt-8">Выберите рейтинг</h2>

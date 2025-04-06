@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router';
 import Button from '@/components/Button';
 import Stars from '@/components/Stars';
 import Tag from '@/components/Tag';
-import { Room } from '@/interfaces';
+import { Interface } from '@/interfaces';
 
-export default function CardRoom({ name, description, price, features, rating, image, index }: Room) {
+export default function CardRoom({ name, description, price, features, rating, image }: Interface.Room) {
     const navigate = useNavigate();
 
     return (
-        <div key={index} className="flex flex-col md:flex-row overflow-hidden bg-white border border-gray-200 rounded-2xl shadow-(--custom-shadow)">
+        <div className="flex flex-col md:flex-row overflow-hidden bg-white border border-gray-200 rounded-2xl shadow-(--custom-shadow)">
             <div className="w-full h-auto md:max-w-3xs md:aspect-square max-h-xs">
                 <img
                     src={image}

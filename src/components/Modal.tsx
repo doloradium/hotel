@@ -1,9 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect } from 'react';
 
-import { ModalProps } from '@/interfaces';
+import { Interface } from '@/interfaces';
 
-export default function Modal({ isOpen, setIsOpen, children, className }: ModalProps) {
+export default function Modal({ isOpen, setIsOpen, children, className }: Interface.ModalProps) {
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden'

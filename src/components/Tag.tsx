@@ -1,7 +1,7 @@
 import { tags } from '@/data/constants';
-import { TagProps } from '@/interfaces';
+import { Interface } from '@/interfaces';
 
-export default function Tag({ name, isClickable = false, isActive = false, onClick }: TagProps) {
+export default function Tag({ name, isClickable = false, isActive = false, onClick }: Interface.TagProps) {
     const filteredTags = tags.filter((item) => item.name === name);
 
     return (
