@@ -9,7 +9,10 @@ import { UserService } from '@/services';
 
 const loginSchema = z.object({
     email: z.string().email('Неверный адрес электронной почты').nonempty('Почта обязательна'),
-    password: z.string().min(6, 'Пароль должен содержать минимум 6 символов').nonempty('Пароль обязателен'),
+    password: z.string()
+        .min(8, 'Минимум 8 символов')
+        .regex(/[a-zA-Z]/, 'Пароль должен содержать хотя бы одну букву')
+        .nonempty('Пароль обязателен'),
 });
 
 export default function Login() {
