@@ -9,11 +9,34 @@ import { UserService } from '@/services';
 
 const registrationSchema = z.object({
     name: z.string().min(2, 'Минимум 2 символa').nonempty('Имя обязательно'),
-    surname: z.string().nonempty('Фамилия обязательна'),
+    surname: z.string().min(3, 'Минимум 3 символa').nonempty('Фамилия обязательна'),
     email: z.string().email('Неверный адрес').nonempty('Почта обязательна'),
-    password: z.string().min(6, 'Минимум 6 символов').nonempty('Пароль обязателен'),
-    confirmPassword: z.string().min(6, 'Минимум 6 символов').nonempty('Пароль обязателен'),
-    birthDate: z.string().nonempty('Дата рождения обязательна'),
+    password: z.string()
+        .min(8, 'Минимум 8 символов')
+        .regex(/[a-zA-Z]/, 'Пароль должен содержать хотя бы одну букву')
+        .nonempty('Пароль обязателен'),
+    confirmPassword: z.string()
+        .min(8, 'Минимум 8 символов')
+        .regex(/[a-zA-Z]/, 'Пароль должен содержать хотя бы одну букву')
+        .nonempty('Пароль обязателен'),
+    birthDate: z.string()
+        .nonempty('Дата рождения обязательна')
+        .refine((date) => {
+            const birthDate = new Date(date);
+            const today = new Date();
+            const age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            // Adjust age if birthday hasn't occurred this year
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                return age - 1 >= 18;
+            }
+            
+            return age >= 18;
+        }, {
+            message: "Вам должно быть не менее 18 лет",
+            path: ["birthDate"],
+        }),
 }).refine((data) => data.password === data.confirmPassword, {
     message: "Пароли не совпадают",
     path: ["confirmPassword"],
