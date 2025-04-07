@@ -158,7 +158,7 @@ export default function Main() {
                   description={room.description ?? ''}
                   features={room.features ?? []}
                   image={room.preview ?? ''}
-                  name={String(room.id)}
+                  name={room.name}
                   key={index}
                   price={room.price}
                   rating={room.rating}

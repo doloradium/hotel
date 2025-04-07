@@ -7,10 +7,8 @@ import { tags } from '@/data/constants';
 import { Interface } from '@/interfaces';
 
 export default function ModalFilters({ isOpen, setIsOpen, selectedFilters, setSelectedFilters }: Interface.ModalFiltersProps) {
-    // Temporary state for filters that are being selected in the modal
     const [tempFilters, setTempFilters] = useState<string[]>(selectedFilters || []);
     
-    // Reset temp filters when modal opens/closes or selectedFilters changes
     useEffect(() => {
         if (isOpen) {
             setTempFilters(selectedFilters || []);
@@ -24,7 +22,6 @@ export default function ModalFilters({ isOpen, setIsOpen, selectedFilters, setSe
     };
     
     const handleConfirm = () => {
-        // Apply the temporary filters to the actual state
         setSelectedFilters(tempFilters);
         setIsOpen(false);
     };
@@ -37,7 +34,7 @@ export default function ModalFilters({ isOpen, setIsOpen, selectedFilters, setSe
                     <Tag
                         isClickable={true}
                         key={index}
-                        name={item.name} // Use item.name as expected by the Tag component
+                        name={item.name}
                         isActive={tempFilters.includes(item.name)}
                         onClick={() => handleFilterToggle(item.name)}
                     />

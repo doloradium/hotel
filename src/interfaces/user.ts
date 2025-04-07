@@ -98,3 +98,15 @@ export interface RoomParams {
     is_biometry_key?: boolean;
     is_tv?: boolean;
 }
+
+export interface BookPayload {
+    room_id: number;
+    count_of_people: number;
+    start_date: string;
+    end_date: string;
+}
+
+export interface ReservationParams {
+    limit: number;
+    offset: number;
+}

@@ -4,20 +4,31 @@ import { useEffect, useState } from 'react';
 import Button from '@/components/Button';
 import { monthNames } from '@/data/constants';
 
+interface BookedDateRange {
+  start_date: string;
+  end_date: string;
+}
+
 interface CalendarProps {
   isActive?: boolean;
   startDate?: Date | null;
   endDate?: Date | null;
   onDateSelect?: (start: Date | null, end: Date | null) => void;
+  bookedDates?: BookedDateRange[];
 }
 
-export default function Calendar({ isActive = false, startDate = null, endDate = null, onDateSelect }: CalendarProps) {
+export default function Calendar({ isActive = false, startDate = null, endDate = null, onDateSelect, bookedDates = [] }: CalendarProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectingStart, setSelectingStart] = useState(true);
   const [internalStartDate, setInternalStartDate] = useState<Date | null>(startDate);
   const [internalEndDate, setInternalEndDate] = useState<Date | null>(endDate);
   const [hoveredDate, setHoveredDate] = useState<Date | null>(null);
   const [clickCount, setClickCount] = useState(0);
+  
+  const parsedBookedDates = bookedDates.map(range => ({
+    startDate: new Date(range.start_date),
+    endDate: new Date(range.end_date)
+  }));
 
   useEffect(() => {
     setInternalStartDate(startDate);
@@ -58,6 +69,8 @@ export default function Calendar({ isActive = false, startDate = null, endDate =
     if (!isActive) return;
     
     const clickedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+    
+    if (isDateBooked(day)) return;
 
     if (clickCount >= 2 && !selectingStart) {
       setInternalStartDate(null);
@@ -98,7 +111,7 @@ export default function Calendar({ isActive = false, startDate = null, endDate =
   };
 
   const handleDateHover = (day: number) => {
-    if (!isActive || selectingStart || clickCount >= 2) return;
+    if (!isActive || selectingStart || clickCount >= 2 || isDateBooked(day)) return;
     
     setHoveredDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), day));
   };
@@ -132,6 +145,19 @@ export default function Calendar({ isActive = false, startDate = null, endDate =
       (internalStartDate && currentDay.getTime() === internalStartDate.getTime()) ||
       (internalEndDate && currentDay.getTime() === internalEndDate.getTime())
     );
+  };
+
+  const isDateBooked = (day: number) => {
+    const currentDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+    
+    const currentDayWithoutTime = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate());
+    
+    return parsedBookedDates.some(range => {
+      const startDateWithoutTime = new Date(range.startDate.getFullYear(), range.startDate.getMonth(), range.startDate.getDate());
+      const endDateWithoutTime = new Date(range.endDate.getFullYear(), range.endDate.getMonth(), range.endDate.getDate());
+      
+      return currentDayWithoutTime >= startDateWithoutTime && currentDayWithoutTime <= endDateWithoutTime;
+    });
   };
 
   return (
@@ -172,13 +198,13 @@ export default function Calendar({ isActive = false, startDate = null, endDate =
           {days.map((day) => (
             <button
               key={`current-${day}`}
-              className='relative flex items-center justify-center w-full font-semibold rounded-lg aspect-square'
+              className={`relative flex items-center justify-center w-full font-semibold rounded-lg aspect-square ${isActive == true && !isDateBooked(day) ? 'cursor-pointer' : isDateBooked(day) ? 'cursor-not-allowed' : ''}`}
               onClick={() => handleDateClick(day)}
               onMouseEnter={() => handleDateHover(day)}
               onMouseLeave={() => setHoveredDate(null)}
             >
               <AnimatePresence>
-                {isActive && isDateInRange(day) && !isSelectedDate(day) && (
+                {isActive && isDateInRange(day) && !isSelectedDate(day) && !isDateBooked(day) && (
                   <motion.div 
                     className="absolute top-0 z-0 w-full h-full bg-blue-200 rounded-lg"
                     initial={{ opacity: 0, scale: 0.9 }}
@@ -187,7 +213,7 @@ export default function Calendar({ isActive = false, startDate = null, endDate =
                     transition={{ duration: 0.2 }}
                   />
                 )}
-                {isActive && isSelectedDate(day) && (
+                {isActive && isSelectedDate(day) && !isDateBooked(day) && (
                   <motion.div 
                     className="absolute top-0 left-0 w-full h-full bg-blue-500 rounded-lg z-1"
                     initial={{ opacity: 0, scale: 0.9 }}
@@ -196,8 +222,17 @@ export default function Calendar({ isActive = false, startDate = null, endDate =
                     transition={{ duration: 0.2 }}
                   />
                 )}
+                {isActive && isDateBooked(day) && (
+                  <motion.div 
+                    className="absolute top-0 left-0 w-full h-full bg-red-500 rounded-lg z-1"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.2 }}
+                  />
+                )}
               </AnimatePresence>
-              <div className={`z-2 ${isActive && isSelectedDate(day) ? 'text-white' : ''}`}>{day}</div>
+              <div className={`z-2 ${isActive && (isSelectedDate(day) || isDateBooked(day)) ? 'text-white' : ''}`}>{day}</div>
             </button>
           ))}
           {nextMonthDays.map((day) => (

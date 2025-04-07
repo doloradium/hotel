@@ -11,15 +11,28 @@ export const BASE_URL = import.meta.env.VITE_BASE_API_URL;
 
 const makeRequest = async <T>(
     axiosInstance: AxiosInstance,
-    method: 'get' | 'post',
+    method: 'get' | 'post' | 'delete' | 'put',
     path: string,
     scheme: ZodSchema<T>, 
     payloadOrQuery: any = null 
 ): Promise<{ success: boolean; data?: T; status?: number; message?: string } | null> => {
     try {
-        const response = method === 'post' 
-            ? await axiosInstance.post(path, payloadOrQuery) 
-            : await axiosInstance.get(path, { params: payloadOrQuery });
+        let response;
+        
+        switch (method) {
+            case 'post':
+                response = await axiosInstance.post(path, payloadOrQuery);
+                break;
+            case 'put':
+                response = await axiosInstance.put(path, payloadOrQuery);
+                break;
+            case 'delete':
+                response = await axiosInstance.delete(path, { params: payloadOrQuery }) 
+                break;
+            case 'get':
+            default:
+                response = await axiosInstance.get(path, { params: payloadOrQuery });
+        }
 
         const data = scheme.parse(response.data);
         return { success: true, data };
@@ -145,6 +158,7 @@ export const getRooms = async (params: Interface.RoomParams) => {
             preview: z.string().nullable(),
             description: z.string().nullable(),
             room_count: z.number(),
+            name: z.string(),
             count_of_people: z.number(),
             price: z.number(),
             rating: z.number(),
@@ -185,6 +199,7 @@ export const getRoomData = async (room_id: number) => {
         preview: z.string().nullable(),
         description: z.string().nullable(),
         room_count: z.number(),
+        name: z.string(),
         count_of_people: z.number(),
         price: z.number(),
         rating: z.number(),
@@ -249,3 +264,79 @@ export const createReview = async (payload: Interface.ReviewProps) => {
 
     return result;
 };
+
+export const bookRoom = async (payload: Interface.BookPayload) => {
+    const schema = z.object({
+        message: z.string(),
+        status: z.string()
+    })
+
+    const result = await makeRequest(S_PRIVATE_AXIOS, 'post', '/api/v1/rooms/reservations', schema, payload);
+
+    return result;
+};
+
+export const getBookedDates = async (room_id: number) => {
+    const schema = z.array(
+        z.object({
+            start_date: z.string(),
+            end_date: z.string()
+        })
+    )
+
+    const result = await makeRequest(S_PRIVATE_AXIOS, 'get', '/api/v1/rooms/busy/dates', schema, {room_id});
+
+    return result;
+};
+
+export const getReservations = async () => {
+    const schema = z.array(
+        z.object({
+            id: z.number(),
+            user_id: z.number(),
+            room: z.object({
+                id: z.number(),
+                name: z.string(),
+                description: z.string(),
+                room_count: z.number(),
+                count_of_people: z.number(),
+                price: z.number(),
+                rating: z.number(),
+            }),
+            start_date: z.string(),
+            end_date: z.string(),
+            count_nights: z.number(),
+            price: z.number(),
+        })
+    )
+
+    const result = await makeRequest(S_PRIVATE_AXIOS, 'get', '/api/v1/rooms/reservations', schema, {limit: 100, offset: 0});
+
+    return result;
+};
+
+export const deleteReservation = async (reservation_id: number) => {
+    const schema = z.object({}).nullable()
+
+    const result = await makeRequest(S_PRIVATE_AXIOS, 'delete', '/api/v1/rooms/reservations', schema, { reservation_id });
+
+    return result;
+};
+
+export const updateReservation = async (payload: {
+    reservation_id: number;
+    count_of_people: number;
+    start_date: string;
+    end_date: string;
+}) => {
+    const schema = z.object({
+        message: z.string(),
+        status: z.string()
+    });
+
+    const result = await makeRequest(S_PRIVATE_AXIOS, 'put', '/api/v1/rooms/reservations', schema, payload);
+
+    return result;
+};
+
+

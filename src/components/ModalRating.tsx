@@ -11,10 +11,8 @@ interface ModalRatingProps extends Interface.ModalChildProps {
 }
 
 export default function ModalRating({ isOpen, setIsOpen, selectedRating, setSelectedRating }: ModalRatingProps) {
-    // Temporary state for rating that's being selected in the modal
     const [tempRating, setTempRating] = useState<number | null>(selectedRating);
     
-    // Reset temp rating when modal opens/closes or selectedRating changes
     useEffect(() => {
         if (isOpen) {
             setTempRating(selectedRating);
@@ -22,7 +20,6 @@ export default function ModalRating({ isOpen, setIsOpen, selectedRating, setSele
     }, [isOpen, selectedRating]);
     
     const handleConfirm = () => {
-        // Apply the temporary rating to the actual state
         setSelectedRating(tempRating);
         setIsOpen(false);
     };
@@ -34,7 +31,6 @@ export default function ModalRating({ isOpen, setIsOpen, selectedRating, setSele
                 {[5, 4, 3, 2].map((stars) => (
                     <button 
                         onClick={() => {
-                            // Update the temporary rating only
                             setTempRating(stars);
                         }} 
                         key={stars} 
@@ -48,7 +44,6 @@ export default function ModalRating({ isOpen, setIsOpen, selectedRating, setSele
                 ))}
                 <button 
                     onClick={() => {
-                        // Update the temporary rating only
                         setTempRating(null);
                     }} 
                     className={`flex transition duration-300 items-center w-full gap-4 p-2 pl-8 cursor-pointer ${tempRating === null ? 'bg-gray-100' : ''} hover:bg-gray-100`}
