@@ -1,11 +1,30 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Button from '@/components/Button';
 import { monthNames } from '@/data/constants';
 
-export default function Calendar() {
+interface CalendarProps {
+  isActive?: boolean;
+  startDate?: Date | null;
+  endDate?: Date | null;
+  onDateSelect?: (start: Date | null, end: Date | null) => void;
+}
+
+export default function Calendar({ isActive = false, startDate = null, endDate = null, onDateSelect }: CalendarProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectingStart, setSelectingStart] = useState(true);
+  const [internalStartDate, setInternalStartDate] = useState<Date | null>(startDate);
+  const [internalEndDate, setInternalEndDate] = useState<Date | null>(endDate);
+  const [hoveredDate, setHoveredDate] = useState<Date | null>(null);
+  const [clickCount, setClickCount] = useState(0);
+
+  useEffect(() => {
+    setInternalStartDate(startDate);
+    setInternalEndDate(endDate);
+    setSelectingStart(startDate === null);
+    setClickCount(startDate !== null && endDate !== null ? 2 : startDate !== null ? 1 : 0);
+  }, [startDate, endDate]);
 
   const handlePreviousMonth = () => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
@@ -34,6 +53,86 @@ export default function Calendar() {
 
   const additionalPreviousDays = requiredPreviousDays > 0 ? Array.from({ length: requiredPreviousDays }, (_, i) => lastDayOfPreviousMonth - i - previousMonthDays.length).reverse() : [];
   const additionalNextDays = requiredNextDays > 0 ? Array.from({ length: requiredNextDays }, (_, i) => i + 1) : [];
+
+  const handleDateClick = (day: number) => {
+    if (!isActive) return;
+    
+    const clickedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+
+    if (clickCount >= 2 && !selectingStart) {
+      setInternalStartDate(null);
+      setInternalEndDate(null);
+      setSelectingStart(true);
+      setClickCount(0);
+      setHoveredDate(null);
+      
+      if (onDateSelect) {
+        onDateSelect(null, null);
+      }
+      return;
+    }
+    
+    if (selectingStart) {
+      setInternalStartDate(clickedDate);
+      setInternalEndDate(null);
+      setSelectingStart(false);
+      setClickCount(1);
+    } else {
+      if (internalStartDate && clickedDate < internalStartDate) {
+        setInternalEndDate(internalStartDate);
+        setInternalStartDate(clickedDate);
+      } else {
+        setInternalEndDate(clickedDate);
+      }
+      setSelectingStart(false);
+      setClickCount(2);
+      
+      if (onDateSelect) {
+        if (internalStartDate && clickedDate < internalStartDate) {
+          onDateSelect(clickedDate, internalStartDate);
+        } else {
+          onDateSelect(internalStartDate, clickedDate);
+        }
+      }
+    }
+  };
+
+  const handleDateHover = (day: number) => {
+    if (!isActive || selectingStart || clickCount >= 2) return;
+    
+    setHoveredDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), day));
+  };
+
+  const isDateInRange = (day: number) => {
+    if (!isActive || !internalStartDate) return false;
+    
+    const currentDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+    
+    if (internalEndDate) {
+      return (
+        (currentDay > internalStartDate && currentDay < internalEndDate) ||
+        (currentDay < internalStartDate && currentDay > internalEndDate)
+      );
+    } else if (hoveredDate && !selectingStart) {
+      return (
+        (currentDay > internalStartDate && currentDay <= hoveredDate) ||
+        (currentDay < internalStartDate && currentDay >= hoveredDate)
+      );
+    }
+    
+    return false;
+  };
+
+  const isSelectedDate = (day: number) => {
+    if (!isActive || (!internalStartDate && !internalEndDate)) return false;
+    
+    const currentDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+    
+    return (
+      (internalStartDate && currentDay.getTime() === internalStartDate.getTime()) ||
+      (internalEndDate && currentDay.getTime() === internalEndDate.getTime())
+    );
+  };
 
   return (
     <AnimatePresence>
@@ -65,40 +164,47 @@ export default function Calendar() {
         </div>
         <div className="grid grid-cols-7 gap-1">
           {additionalPreviousDays.map((day) => (
-            <div key={day} className="flex items-center justify-center w-full font-semibold text-gray-200 aspect-square">{day}</div>
+            <div key={`prev-add-${day}`} className="flex items-center justify-center w-full font-semibold text-gray-200 aspect-square">{day}</div>
           ))}
           {previousMonthDays.map((day) => (
-            <div key={day} className="flex items-center justify-center w-full font-semibold text-gray-200 aspect-square">{day}</div>
+            <div key={`prev-${day}`} className="flex items-center justify-center w-full font-semibold text-gray-200 aspect-square">{day}</div>
           ))}
           {days.map((day) => (
             <button
-              key={day}
+              key={`current-${day}`}
               className='relative flex items-center justify-center w-full font-semibold rounded-lg aspect-square'
+              onClick={() => handleDateClick(day)}
+              onMouseEnter={() => handleDateHover(day)}
+              onMouseLeave={() => setHoveredDate(null)}
             >
-              {
-                day > 5 && day < 16 &&
-                <div className="absolute top-0 z-0 h-full -translate-x-1/2 bg-blue-200 left-1/2 w-5/2"></div>
-              }
-              {
-                day === 5 &&
-                <div className="absolute top-0 right-0 z-0 h-full translate-x-1/2 bg-blue-200 w-3/2"></div>
-              }
-              {
-                day === 16 &&
-                <div className="absolute top-0 left-0 z-0 h-full -translate-x-1/2 bg-blue-200 w-3/2"></div>
-              }
-              {
-                (day === 5 || day === 16) &&
-                <div className="absolute top-0 left-0 w-full h-full bg-blue-500 rounded-lg z-1"></div>
-              }
-              <div className={`z-2 ${(day === 5 || day === 16) && 'text-white'}`}>{day}</div>
+              <AnimatePresence>
+                {isActive && isDateInRange(day) && !isSelectedDate(day) && (
+                  <motion.div 
+                    className="absolute top-0 z-0 w-full h-full bg-blue-200 rounded-lg"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.2 }}
+                  />
+                )}
+                {isActive && isSelectedDate(day) && (
+                  <motion.div 
+                    className="absolute top-0 left-0 w-full h-full bg-blue-500 rounded-lg z-1"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.2 }}
+                  />
+                )}
+              </AnimatePresence>
+              <div className={`z-2 ${isActive && isSelectedDate(day) ? 'text-white' : ''}`}>{day}</div>
             </button>
           ))}
           {nextMonthDays.map((day) => (
-            <div key={day} className="flex items-center justify-center w-full font-semibold text-gray-200 aspect-square">{day}</div>
+            <div key={`next-${day}`} className="flex items-center justify-center w-full font-semibold text-gray-200 aspect-square">{day}</div>
           ))}
           {additionalNextDays.map((day) => (
-            <div key={day} className="flex items-center justify-center w-full font-semibold text-gray-200 aspect-square">{day}</div>
+            <div key={`next-add-${day}`} className="flex items-center justify-center w-full font-semibold text-gray-200 aspect-square">{day}</div>
           ))}
         </div>
       </motion.div>

@@ -138,7 +138,7 @@ export const getMe = async () => {
     return result;
 };
 
-export const getRooms = async () => {
+export const getRooms = async (params: Interface.RoomParams) => {
     const schema = z.array(
         z.object({
             id: z.number(),
@@ -158,7 +158,7 @@ export const getRooms = async () => {
         })
     )
 
-    const result = await makeRequest(S_PRIVATE_AXIOS, 'get', '/api/v1/rooms/list', schema);
+    const result = await makeRequest(S_PRIVATE_AXIOS, 'get', '/api/v1/rooms/list', schema, params);
 
     if (result && result.data && result.success) {
         const roomsWithFeatures = result.data.map(room => ({
@@ -175,6 +175,77 @@ export const getRooms = async () => {
         }));
         return { success: true, data: roomsWithFeatures };
     }
+
+    return result;
+};
+
+export const getRoomData = async (room_id: number) => {
+    const schema = z.object({
+        id: z.number(),
+        preview: z.string().nullable(),
+        description: z.string().nullable(),
+        room_count: z.number(),
+        count_of_people: z.number(),
+        price: z.number(),
+        rating: z.number(),
+        is_noisecancelling: z.boolean().nullable(),
+        is_wifi: z.boolean(),
+        is_pc: z.boolean(),
+        is_breakfast: z.boolean(),
+        is_biometry_key: z.boolean(),
+        is_tv: z.boolean(),
+        features: z.array(z.string()).optional()
+    });
+
+    const result = await makeRequest(S_PRIVATE_AXIOS, 'get', '/api/v1/rooms/one', schema, { room_id });
+
+    if (result && result.data && result.success) {
+        const room = {
+            ...result.data,
+            preview: result.data.preview ?? noImage,
+            features: getRoomFeatures({
+                is_biometry_key: result.data.is_biometry_key,
+                is_noisecancelling: Boolean(result.data.is_noisecancelling),
+                is_wifi: result.data.is_wifi,
+                is_pc: result.data.is_pc,
+                is_breakfast: result.data.is_breakfast,
+                is_tv: result.data.is_tv,
+            }),
+        };
+        return { success: true, data: room };
+    }
+
+    return result;
+};
+
+export const getReviews = async (room_id: number) => {
+    const schema = z.object({
+        reviews: z.array(
+            z.object({
+                review_id: z.number(),
+                text: z.string(),
+                rating: z.number(),
+                created_at: z.string(),
+                user: z.object({
+                    user_id: z.number(),
+                    name: z.string()
+                })
+            })
+        )
+    })
+
+    const result = await makeRequest(S_PRIVATE_AXIOS, 'get', '/api/v1/reviews/list', schema, {room_id});
+
+    return result;
+};
+
+export const createReview = async (payload: Interface.ReviewProps) => {
+    const schema = z.object({
+        message: z.string(),
+        status_code: z.number()
+    })
+
+    const result = await makeRequest(S_PRIVATE_AXIOS, 'post', '/api/v1/reviews/', schema, payload);
 
     return result;
 };

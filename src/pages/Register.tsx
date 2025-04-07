@@ -69,7 +69,7 @@ export default function Register() {
     });
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen gap-4 p-4">
+        <div className="flex flex-col items-center justify-center h-full gap-4 p-4">
             <div className="w-full max-w-md flex flex-col gap-8 items-center p-8 border border-gray-200 bg-white shadow-(--custom-shadow) rounded-xl">
                 <h1 className="text-2xl font-semibold text-center">Регистрация</h1>
                 <form className="flex flex-col items-center w-full space-y-4" onSubmit={formik.handleSubmit}>

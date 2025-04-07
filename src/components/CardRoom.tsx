@@ -5,7 +5,7 @@ import Stars from '@/components/Stars';
 import Tag from '@/components/Tag';
 import { Interface } from '@/interfaces';
 
-export default function CardRoom({ name, description, price, features, rating, image }: Interface.Room) {
+export default function CardRoom({ name, id, description, price, features, rating, image }: Interface.Room) {
     const navigate = useNavigate();
 
     return (
@@ -31,7 +31,7 @@ export default function CardRoom({ name, description, price, features, rating, i
                     </div>
                 </div>
                 <Button onClick={() => {
-                    navigate(`/room`)
+                    navigate(`/room?id=${id}`)
                 }}>
                     Забронировать • {price} ₽
                 </Button>

@@ -7,6 +7,8 @@ import CardRoom from '@/components/CardRoom';
 import ModalCalendar from '@/components/ModalCalendar';
 import ModalFilters from '@/components/ModalFilters';
 import ModalRating from '@/components/ModalRating';
+import { monthNames, tags } from '@/data/constants';
+import { Interface } from '@/interfaces';
 import { UserService } from '@/services';
 import { useQuery } from '@tanstack/react-query';
 
@@ -17,8 +19,49 @@ export default function Main() {
   const [isRatingOpen, setIsRatingOpen] = useState(false);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  const [selectedRating, setSelectedRating] = useState<number | null>(null);
+  const [checkInDate, setCheckInDate] = useState<Date | null>(null);
+  const [checkOutDate, setCheckOutDate] = useState<Date | null>(null);
+  const [guestCount, setGuestCount] = useState<string>('');
+  const [searchParams, setSearchParams] = useState<Interface.RoomParams>({});
 
-  const { data: roomData, isLoading } = useQuery({ queryKey: ['getRooms'], queryFn: () => UserService.getRooms() });
+  const getFilterParams = () => {
+    const filterParams: Record<string, boolean> = {};
+    
+    if (selectedFilters.includes('pc')) filterParams.id_pc = true;
+    if (selectedFilters.includes('noiseCancelling')) filterParams.is_noisecancelling = true;
+    if (selectedFilters.includes('wifi')) filterParams.is_wifi = true;
+    if (selectedFilters.includes('breakfast')) filterParams.is_breakfast = true;
+    if (selectedFilters.includes('bioKey')) filterParams.is_biometry_key = true;
+    if (selectedFilters.includes('tv')) filterParams.is_tv = true;
+    
+    return filterParams;
+  };
+
+  const getSearchParams = () => {
+    const filterParams = getFilterParams();
+    
+    return {
+      ...filterParams,
+      start_date: checkInDate ? checkInDate.toISOString().split('T')[0] : undefined,
+      end_date: checkOutDate ? checkOutDate.toISOString().split('T')[0] : undefined,
+      price_from: minPrice ? parseInt(minPrice) : undefined,
+      price_to: maxPrice ? parseInt(maxPrice) : undefined,
+      rating: selectedRating ? selectedRating : undefined,
+      count_of_people: guestCount ? parseInt(guestCount) : undefined,
+    };
+  };
+
+  const { data: roomData, isLoading } = useQuery({ 
+    queryKey: ['getRooms', searchParams], 
+    queryFn: () => UserService.getRooms(searchParams),
+    enabled: true, 
+  });
+
+  const handleSearch = () => {
+    setSearchParams(getSearchParams());
+  };
 
   return (
     <div className="min-h-screen">
@@ -44,7 +87,7 @@ export default function Main() {
               type="text"
               placeholder="Заезд"
               className={`w-full h-10 px-4 placeholder-gray-500 border border-gray-200 cursor-pointer bg-gray-50 sm:col-span-2 transition-all duration-300 rounded-sm`}
-              value={''}
+              value={checkInDate ? `${checkInDate.getDate()} ${monthNames[checkInDate.getMonth()]}` : ''}
               readOnly
               onClick={() => setIsCalendarOpen(true)}
             />
@@ -52,7 +95,7 @@ export default function Main() {
               type="text"
               placeholder="Выезд"
               className={`w-full h-10 px-4 placeholder-gray-500 border border-gray-200 cursor-pointer bg-gray-50 sm:col-span-2 transition-all duration-300 ${isHovered ? 'rounded-sm sm:rounded-tr-2xl' : 'rounded-sm'}`}
-              value={''}
+              value={checkOutDate ? `${checkOutDate.getDate()} ${monthNames[checkOutDate.getMonth()]}` : ''}
               readOnly
               onClick={() => setIsCalendarOpen(true)}
             />
@@ -61,26 +104,42 @@ export default function Main() {
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             >
-              <Button className="w-full h-full rounded-sm rounded-t-sm hover:rounded-2xl rounded-b-2xl sm:rounded-tr-2xl sm:rounded-l-sm">
-                Найти
+              <Button 
+                className="w-full h-full rounded-sm rounded-t-sm hover:rounded-2xl rounded-b-2xl sm:rounded-tr-2xl sm:rounded-l-sm"
+                onClick={handleSearch}
+              >
+                {isLoading ? 'Поиск...' : 'Найти'}
               </Button>
             </div>
             <input
               type="number"
               placeholder="Количество жильцов"
               className={`w-full h-10 px-4 placeholder-gray-500 border border-gray-200 bg-gray-50 sm:col-span-2 transition-all duration-300 rounded-sm sm:rounded-bl-2xl`}
+              value={guestCount}
+              onChange={(e) => setGuestCount(e.target.value)}
             />
             <div
               onClick={() => setIsRatingOpen(true)}
-              className={`sm:col-span-2 w-full flex items-center justify-baseline h-10 px-4 text-gray-500 border border-gray-200 bg-gray-50 transition-all rounded-sm duration-300`}
+              className={`sm:col-span-2 cursor-pointer w-full flex items-center justify-baseline h-10 px-4 border border-gray-200 bg-gray-50 transition-all rounded-sm duration-300`}
             >
-              Рейтинг
+              {selectedRating ? <div className="text-black">Рейтинг: от {selectedRating}</div> : <div className="text-gray-500">Рейтинг</div>}
             </div>
             <div
               className={`flex items-center w-full h-10 px-4 text-gray-500 border border-gray-200 cursor-pointer bg-gray-50 col-span-2 transition-all duration-300 ${isHovered ? 'rounded-sm sm:rounded-br-2xl' : 'rounded-sm'}`}
               onClick={() => setIsFiltersOpen(!isFiltersOpen)}
             >
-              Удобства
+              {
+                selectedFilters.length > 0 
+                ? 
+                <div className="text-black truncate">
+                  {selectedFilters.map(filter => {
+                    const tag = tags.find(tag => tag.name === filter);
+                    return tag ? tag.text : filter;
+                  }).join(', ')}
+                </div> 
+                : 
+                'Удобства'
+              }
             </div>
           </div>
         </div>
@@ -88,32 +147,51 @@ export default function Main() {
 
       <div className="w-full p-4 mx-auto max-w-7xl">
         <h2 className="mb-10 text-2xl font-semibold text-center">Доступные номера</h2>
-        <div className="space-y-4">
-          {
-            isLoading
-            ? 
-            'Загрузка'
-            :
-            roomData?.data?.map((room, index) => (
-              <CardRoom 
-                description={room.description ?? ''} 
-                features={room.features ?? []} 
-                image={room.preview ?? ''} 
-                name={String(room.id)} 
-                key={index}
-                price={room.price}
-                rating={room.rating}
-              />
-            ))
-          }
-        </div>
+        {
+          isLoading ? (
+            <div className="py-8 text-xl text-center">Загрузка...</div>
+          ) : roomData?.data && roomData.data.length > 0 ? (
+            <div className="mb-8 space-y-4">
+              {roomData.data.map((room, index) => (
+                <CardRoom
+                  id={room.id}
+                  description={room.description ?? ''}
+                  features={room.features ?? []}
+                  image={room.preview ?? ''}
+                  name={String(room.id)}
+                  key={index}
+                  price={room.price}
+                  rating={room.rating}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="mx-auto my-8 w-fit">
+              <img src={empty} alt="Empty" className="w-full p-4 max-w-64" />
+            </div>
+          )
+        }
       </div>
-      <div className="mx-auto my-8 w-fit">
-        <img src={empty} alt="Empty" className="w-full p-4 max-w-64" />
-      </div>
-      <ModalFilters isOpen={isFiltersOpen} setIsOpen={setIsFiltersOpen} />
-      <ModalRating isOpen={isRatingOpen} setIsOpen={setIsRatingOpen} />
-      <ModalCalendar isOpen={isCalendarOpen} setIsOpen={setIsCalendarOpen} />
+      <ModalFilters 
+        isOpen={isFiltersOpen} 
+        setIsOpen={setIsFiltersOpen} 
+        selectedFilters={selectedFilters} 
+        setSelectedFilters={setSelectedFilters} 
+      />
+      <ModalRating 
+        isOpen={isRatingOpen} 
+        setIsOpen={setIsRatingOpen} 
+        selectedRating={selectedRating}
+        setSelectedRating={setSelectedRating}
+      />
+      <ModalCalendar 
+        isOpen={isCalendarOpen} 
+        setIsOpen={setIsCalendarOpen} 
+        onDatesSelected={(start, end) => {
+          setCheckInDate(start);
+          setCheckOutDate(end);
+        }}
+      />
     </div>
   );
 }
